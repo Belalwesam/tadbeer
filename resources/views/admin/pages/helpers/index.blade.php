@@ -39,7 +39,7 @@
 
     <!-- Add Modal -->
     <div class="modal fade" id="addHelperModal" tabindex="-1" aria-labelledby="addHelperModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addHelperModalLabel">@lang('helpers.add_helper')</h5>
@@ -83,30 +83,37 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="video" class="form-label">@lang('helpers.video')</label>
-                            <form action="/upload" class="dropzone needsclick" id="dropzone-basic-video">
-                                <div class="dz-message needsclick">
-                                    @lang('general.drag_&_drop')
+
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="video" class="form-label">@lang('helpers.video')</label>
+                                    <form action="/upload" class="dropzone needsclick" id="dropzone-basic-video">
+                                        <div class="dz-message needsclick">
+                                            @lang('general.drag_&_drop')
+                                        </div>
+                                        <div class="fallback">
+                                            <input name="video" id="video" type="file" accept="video/mp4" />
+                                        </div>
+                                    </form>
                                 </div>
-                                <div class="fallback">
-                                    <input name="video" id="video" type="file" accept="video/mp4" />
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="avatar" class="form-label">@lang('helpers.avatar')</label>
+                                    <form action="/upload" class="dropzone needsclick" id="dropzone-basic-avatar">
+                                        <div class="dz-message needsclick">
+                                            @lang('general.drag_&_drop')
+                                        </div>
+                                        <div class="fallback">
+                                            <input name="avatar" id="avatar" type="file" accept="image/*" />
+                                        </div>
+                                    </form>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                         <div class="mb-3">
-                            <label for="video" class="form-label">@lang('helpers.avatar')</label>
-                            <form action="/upload" class="dropzone needsclick" id="dropzone-basic-avatar">
-                                <div class="dz-message needsclick">
-                                    @lang('general.drag_&_drop')
-                                </div>
-                                <div class="fallback">
-                                    <input name="avatar" id="avatar" type="file" accept="image/*" />
-                                </div>
-                            </form>
-                        </div>
-                        <div class="mb-3">
-                            <label for="video" class="form-label">@lang('helpers.resume')</label>
+                            <label for="resume" class="form-label">@lang('helpers.resume')</label>
                             <form action="/upload" class="dropzone needsclick" id="dropzone-basic-resume">
                                 <div class="dz-message needsclick">
                                     @lang('general.drag_&_drop')
@@ -224,6 +231,22 @@
                 maxFiles: 1
             });
 
+            let videoFile;
+            myDropzoneVideo.on("addedfile", function(file) {
+                // Access the selected file here
+                videoFile = file;
+            });
+            let avatarFile;
+            myDropzoneAvatar.on("addedfile", function(file) {
+                // Access the selected file here
+                avatarFile = file;
+            });
+            let resumeFile;
+            myDropzoneResume.on("addedfile", function(file) {
+                // Access the selected file here
+                resumeFile = file;
+            });
+
 
 
             // ----- crud operations
@@ -233,8 +256,15 @@
                 let data = new FormData();
                 //append to form data
                 data.append('name', $('#name').val())
+                data.append('nationality', $('#nationality').val())
+                data.append('age', $('#age').val())
+                data.append('category_id', $('#category').val())
+                data.append('video', videoFile)
+                data.append('avatar', avatarFile)
+                data.append('resume', resumeFile)
                 let formBtn = $(this) // the button that sends the reuquest (to minipulate ui)
-
+                console.log(data)
+                return
                 $.ajax({
                     method: 'POST',
                     url: "{!! route('admin.categories.store') !!}",
