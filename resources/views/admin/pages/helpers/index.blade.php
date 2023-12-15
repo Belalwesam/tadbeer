@@ -48,6 +48,20 @@
                                 <option value="">@lang('general.please_select')</option>
                             </select>
                         </div>
+                        <div class="form-group mb-3">
+                            <label for="name" class="form-label">@lang('helpers.age')</label>
+                            <input type="number" min="1" name="age" id="age" class="form-control"
+                                placeholder="@lang('helpers.age')">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="category" class="form-label">@lang('helpers.category')</label>
+                            <select name="category" id="category" class="form-select">
+                                <option value="">@lang('general.please_select')</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">

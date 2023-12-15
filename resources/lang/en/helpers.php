@@ -9,5 +9,6 @@ return [
     'avatar' => 'Personal Picture',
     'nationality' => 'Nationality',
     'resume' => 'Personal resume',
-    'filter' => 'Filter Results'
+    'filter' => 'Filter Results',
+    'age' => 'Age'
 ];
