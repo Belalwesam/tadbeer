@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\Auth\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\HelperController;
 use App\Http\Controllers\Admin\RoleController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -65,6 +66,16 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
                     Route::patch('/', 'update')->name('update');
                     Route::delete('/', 'destroy')->name('delete');
                     Route::get('/categories-list', 'getCategoriesList')->name('categories_list'); // get role users for datatable
+                });
+            });
+
+            #workers crud routes (prefix is stand alone because of overlapping)
+            Route::prefix('helpers')->group(function () {
+                Route::group(['as' => 'helpers.', 'controller' => HelperController::class, 'middleware' => ['can:see categories']], function () {
+                    Route::get('/', 'index')->name('index');
+                    Route::post('/', 'store')->name('store');
+                    Route::patch('/', 'update')->name('update');
+                    Route::delete('/', 'destroy')->name('delete');
                 });
             });
         });
