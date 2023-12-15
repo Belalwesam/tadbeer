@@ -18,5 +18,6 @@ return [
     'select' => 'تحديد',
     'confirmation' => 'هل أنت متأكد؟',
     'cant_revert' => 'لن تتمكن من عكس هذه العملية',
-    'delete_success' => 'تم الحذف بنجاح'
+    'delete_success' => 'تم الحذف بنجاح',
+    'please_select' => 'الرجاء الإختيار'
 ];

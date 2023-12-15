@@ -18,6 +18,6 @@ return [
     'select' => 'Select',
     'confirmation' => 'Are You sure?',
     'cant_revert' => "You won't be able to revert this",
-    'delete_success' => 'Deleted Successfully'
-
+    'delete_success' => 'Deleted Successfully',
+    'please_select' => 'Please Select'
 ];
