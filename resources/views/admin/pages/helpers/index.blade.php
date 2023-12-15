@@ -85,12 +85,34 @@
                         </div>
                         <div class="mb-3">
                             <label for="video" class="form-label">@lang('helpers.video')</label>
-                            <form action="/upload" class="dropzone needsclick" id="dropzone-basic">
+                            <form action="/upload" class="dropzone needsclick" id="dropzone-basic-video">
                                 <div class="dz-message needsclick">
                                     @lang('general.drag_&_drop')
                                 </div>
                                 <div class="fallback">
-                                    <input name="video" type="file" accept="video/mp4" />
+                                    <input name="video" id="video" type="file" accept="video/mp4" />
+                                </div>
+                            </form>
+                        </div>
+                        <div class="mb-3">
+                            <label for="video" class="form-label">@lang('helpers.avatar')</label>
+                            <form action="/upload" class="dropzone needsclick" id="dropzone-basic-avatar">
+                                <div class="dz-message needsclick">
+                                    @lang('general.drag_&_drop')
+                                </div>
+                                <div class="fallback">
+                                    <input name="avatar" id="avatar" type="file" accept="image/*" />
+                                </div>
+                            </form>
+                        </div>
+                        <div class="mb-3">
+                            <label for="video" class="form-label">@lang('helpers.resume')</label>
+                            <form action="/upload" class="dropzone needsclick" id="dropzone-basic-resume">
+                                <div class="dz-message needsclick">
+                                    @lang('general.drag_&_drop')
+                                </div>
+                                <div class="fallback">
+                                    <input name="resume" id="resume" type="file" accept=".pdf" />
                                 </div>
                             </form>
                         </div>
@@ -180,7 +202,21 @@
                         <div class="dz-size" data-dz-size></div>
                         </div>
                         </div>`;
-            const myDropzone = new Dropzone('#dropzone-basic', {
+            const myDropzoneVideo = new Dropzone('#dropzone-basic-video', {
+                previewTemplate: previewTemplate,
+                parallelUploads: 1,
+                maxFilesize: 5,
+                addRemoveLinks: true,
+                maxFiles: 1
+            });
+            const myDropzoneAvatar = new Dropzone('#dropzone-basic-avatar', {
+                previewTemplate: previewTemplate,
+                parallelUploads: 1,
+                maxFilesize: 5,
+                addRemoveLinks: true,
+                maxFiles: 1
+            });
+            const myDropzoneResume = new Dropzone('#dropzone-basic-resume', {
                 previewTemplate: previewTemplate,
                 parallelUploads: 1,
                 maxFilesize: 5,
