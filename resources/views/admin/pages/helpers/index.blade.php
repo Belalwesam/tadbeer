@@ -6,6 +6,16 @@
 
 @section('css-vendor')
     <link rel="stylesheet" href="{{ asset('/dashboard/assets/vendor/libs/select2/select2.css') }}" />
+    <link rel="stylesheet" href="{{ asset('/dashboard/assets/vendor/libs/dropzone/dropzone.css') }}" />
+
+    <style>
+        .dropzone .dz-preview.dz-image-preview {
+            width: 100%;
+            height: 100%;
+            max-width: none;
+            max-height: none;
+        }
+    </style>
 @endsection
 
 {{-- main content --}}
@@ -36,33 +46,55 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="#" id="addHelperForm">
-                        <div class="form-group mb-3">
-                            <label for="name" class="form-label">@lang('helpers.name')</label>
-                            <input type="text" name="name" placeholder="@lang('helpers.name')" id="name"
-                                class="form-control">
+                    <div action="" id="addHelperForm">
+
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="name" class="form-label">@lang('helpers.name')</label>
+                                    <input type="text" name="name" id="name" placeholder="@lang('helpers.name')"
+                                        class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="nationality" class="form-label">@lang('helpers.nationality')</label>
+                                    <select name="nationality" id="nationality" class="form-select">
+                                        <option value="">@lang('general.please_select')</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="number" class="form-label">@lang('helpers.age')</label>
+                                    <input type="number" min="1" name="age" id="age" class="form-control"
+                                        placeholder="@lang('helpers.age')">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="category" class="form-label">@lang('helpers.category')</label>
+                                    <select name="category" id="category" class="form-select">
+                                        <option value="">@lang('general.please_select')</option>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group mb-3">
-                            <label for="name" class="form-label">@lang('helpers.nationality')</label>
-                            <select name="nationality" id="nationality" class="form-select">
-                                <option value="">@lang('general.please_select')</option>
-                            </select>
+                        <div class="mb-3">
+                            <label for="video" class="form-label">@lang('helpers.video')</label>
+                            <form action="/upload" class="dropzone needsclick" id="dropzone-basic">
+                                <div class="dz-message needsclick">
+                                    @lang('general.drag_&_drop')
+                                </div>
+                                <div class="fallback">
+                                    <input name="video" type="file" accept="video/mp4" />
+                                </div>
+                            </form>
                         </div>
-                        <div class="form-group mb-3">
-                            <label for="name" class="form-label">@lang('helpers.age')</label>
-                            <input type="number" min="1" name="age" id="age" class="form-control"
-                                placeholder="@lang('helpers.age')">
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="category" class="form-label">@lang('helpers.category')</label>
-                            <select name="category" id="category" class="form-select">
-                                <option value="">@lang('general.please_select')</option>
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </form>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="submit-create-btn" class="btn btn-primary">@lang('general.create')</button>
@@ -103,6 +135,7 @@
 
 @section('script-vendor')
     <script src="{{ asset('/dashboard/assets/vendor/libs/select2/select2.js') }}"></script>
+    <script src="{{ asset('/dashboard/assets/vendor/libs/dropzone/dropzone.js') }}"></script>
 @endsection
 @section('script')
     <script>
@@ -128,6 +161,32 @@
                     });
                 }
             })
+
+
+            //initialise dropzone.js
+            const previewTemplate = `<div class="dz-preview dz-file-preview">
+                        <div class="dz-details">
+                        <div class="dz-thumbnail">
+                            <img data-dz-thumbnail>
+                            <span class="dz-nopreview">No preview</span>
+                            <div class="dz-success-mark"></div>
+                            <div class="dz-error-mark"></div>
+                            <div class="dz-error-message"><span data-dz-errormessage></span></div>
+                            <div class="progress">
+                            <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" data-dz-uploadprogress></div>
+                            </div>
+                        </div>
+                        <div class="dz-filename" data-dz-name></div>
+                        <div class="dz-size" data-dz-size></div>
+                        </div>
+                        </div>`;
+            const myDropzone = new Dropzone('#dropzone-basic', {
+                previewTemplate: previewTemplate,
+                parallelUploads: 1,
+                maxFilesize: 5,
+                addRemoveLinks: true,
+                maxFiles: 1
+            });
 
             // ----- crud operations
 

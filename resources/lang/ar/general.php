@@ -19,5 +19,6 @@ return [
     'confirmation' => 'هل أنت متأكد؟',
     'cant_revert' => 'لن تتمكن من عكس هذه العملية',
     'delete_success' => 'تم الحذف بنجاح',
-    'please_select' => 'الرجاء الإختيار'
+    'please_select' => 'الرجاء الإختيار',
+    'drag_&_drop' => 'إسحب الملفات هنا أو إنقر لرفعها',
 ];
