@@ -84,12 +84,24 @@
              </li>
          @endif
          @if (auth()->user()->hasAbilityTo('see categories'))
-             <!-- Adminstrators -->
+             <!-- categories -->
              <li class="menu-header small text-uppercase"><span class="menu-header-text">@lang('nav.categories')</span></li>
              <li class="menu-item">
                  <a href="{{ route('admin.categories.index') }}" class="menu-link">
                      <i class="menu-icon tf-icons bx bx-selection"></i>
                      <div data-i18n="@lang('nav.categories')">@lang('nav.categories')</div>
+                 </a>
+             </li>
+         @endif
+
+
+         @if (auth()->user()->hasAbilityTo('see helpers'))
+             <!-- helpers -->
+             <li class="menu-header small text-uppercase"><span class="menu-header-text">@lang('nav.helpers')</span></li>
+             <li class="menu-item">
+                 <a href="{{ route('admin.helpers.index') }}" class="menu-link">
+                     <i class="menu-icon tf-icons fa-solid fa-person-dress"></i>
+                     <div data-i18n="@lang('nav.helpers')">@lang('nav.helpers')</div>
                  </a>
              </li>
          @endif
