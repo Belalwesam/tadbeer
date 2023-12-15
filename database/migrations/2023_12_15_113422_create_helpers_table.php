@@ -14,13 +14,14 @@ return new class extends Migration
         Schema::create('helpers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->foreignId('category_id')->constrained('categories')->nullable();
             $table->string('sku');
             $table->string('nationality');
             $table->integer('age');
-            $table->text('video');
-            $table->text('avatar');
-            $table->text('resume');
-            $table->foreignId('category_id')->constrained('categories')->nullable();
+            $table->text('video')->nullable();
+            $table->text('avatar')->nullable();
+            $table->text('resume')->nullable();
+            $table->boolean('featured')->default(0);
             $table->timestamps();
         });
     }

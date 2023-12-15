@@ -262,13 +262,17 @@
                 data.append('video', videoFile)
                 data.append('avatar', avatarFile)
                 data.append('resume', resumeFile)
+                data.append('_token', "{!! csrf_token() !!}")
+
                 let formBtn = $(this) // the button that sends the reuquest (to minipulate ui)
-                console.log(data)
-                return
+                // console.log(data)
+                // return
                 $.ajax({
                     method: 'POST',
-                    url: "{!! route('admin.categories.store') !!}",
+                    url: "{!! route('admin.helpers.store') !!}",
                     data: data,
+                    processData: false,
+                    contentType: false,
                     beforeSend: function() {
                         formBtn.html(
                             '<span class="spinner-border" role="status" aria-hidden="true"></span>'

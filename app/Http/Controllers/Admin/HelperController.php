@@ -12,4 +12,7 @@ class HelperController extends Controller
         $categories = Category::all();
         return view('admin.pages.helpers.index' , compact('categories'));
     }
+    public function store(Request $request) {
+        return $request->all();
+    }
 }
