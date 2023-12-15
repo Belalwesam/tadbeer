@@ -71,7 +71,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
             #workers crud routes (prefix is stand alone because of overlapping)
             Route::prefix('helpers')->group(function () {
-                Route::group(['as' => 'helpers.', 'controller' => HelperController::class, 'middleware' => ['can:see categories']], function () {
+                Route::group(['as' => 'helpers.', 'controller' => HelperController::class, 'middleware' => ['can:see helpers']], function () {
                     Route::get('/', 'index')->name('index');
                     Route::post('/', 'store')->name('store');
                     Route::patch('/', 'update')->name('update');
