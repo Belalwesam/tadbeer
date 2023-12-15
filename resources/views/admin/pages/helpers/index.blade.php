@@ -224,14 +224,15 @@
                 maxFiles: 1
             });
 
+
+
             // ----- crud operations
 
             //create new ajax request
             $('body').on('click', '#submit-create-btn', function() {
-                let data = {
-                    _token: "{!! csrf_token() !!}",
-                    name: $('#name').val(),
-                }
+                let data = new FormData();
+                //append to form data
+                data.append('name', $('#name').val())
                 let formBtn = $(this) // the button that sends the reuquest (to minipulate ui)
 
                 $.ajax({
