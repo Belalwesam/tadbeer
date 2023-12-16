@@ -8,5 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Helper extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'sku', 'nationality', 'age', 'video', 'avatar', 'resume', 'category_id'];
+    protected $fillable = [
+        'name',
+        'sku',
+        'nationality',
+        'age',
+        'video',
+        'avatar',
+        'resume',
+        'category_id'
+    ];
 }
