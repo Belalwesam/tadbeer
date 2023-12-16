@@ -2,15 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Helper;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\FilesUploadService;
 use App\Http\Requests\Admin\HelperStoreRequest;
-use App\Models\Helper;
 
 class HelperController extends Controller
 {
+
+    private $filesUploadService;
+    public function __construct(FilesUploadService $filesUploadService)
+    {
+        $this->filesUploadService = $filesUploadService;
+    }
     public function index()
     {
         $categories = Category::all();
@@ -18,6 +25,7 @@ class HelperController extends Controller
     }
     public function store(HelperStoreRequest $request)
     {
+        return $this->filesUploadService->test();
         // take validated data
         $data['name'] = $request->validated('name');
         $data['age'] = $request->validated('age');
