@@ -35,7 +35,7 @@ function displayErrors(response, editMethod) {
     $(".is-invalid").each(function () {
         $(this).removeClass("is-invalid");
     });
-    $(".invalid-feeback").each(function () {
+    $(".invalid-feedback").each(function () {
         $(this).remove();
     });
     if (!editMethod) {

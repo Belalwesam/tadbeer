@@ -111,12 +111,12 @@
 
     <!-- Notifications js function -->
     <script src="{{ asset('dashboard/assets/vendor/libs/sweetalert2/sweetalert2.js') }}"></script>
-    <script src="{{ asset('dashboard/js/notifications-helper.js') }}"></script>
     <!-- Vendors JS -->
 
     <!-- Main JS -->
     <script src="{{ asset('/dashboard/assets/js/main.js') }}"></script>
     @yield('script-vendor')
+    <script src="{{ asset('dashboard/js/notifications-helper.js') }}"></script>
     @yield('script')
 </body>
 

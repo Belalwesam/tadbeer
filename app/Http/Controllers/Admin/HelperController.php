@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\HelperStoreRequest;
 
 class HelperController extends Controller
 {
@@ -12,7 +13,7 @@ class HelperController extends Controller
         $categories = Category::all();
         return view('admin.pages.helpers.index' , compact('categories'));
     }
-    public function store(Request $request) {
+    public function store(HelperStoreRequest $request) {
         return $request->all();
     }
 }

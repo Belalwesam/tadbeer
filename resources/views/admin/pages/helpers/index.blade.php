@@ -73,8 +73,8 @@
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-group mb-3">
-                                    <label for="category" class="form-label">@lang('helpers.category')</label>
-                                    <select name="category" id="category" class="form-select">
+                                    <label for="category_id" class="form-label">@lang('helpers.category')</label>
+                                    <select name="category_id" id="category_id" class="form-select">
                                         <option value="">@lang('general.please_select')</option>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -258,15 +258,13 @@
                 data.append('name', $('#name').val())
                 data.append('nationality', $('#nationality').val())
                 data.append('age', $('#age').val())
-                data.append('category_id', $('#category').val())
+                data.append('category_id', $('#category_id').val())
                 data.append('video', videoFile)
                 data.append('avatar', avatarFile)
                 data.append('resume', resumeFile)
                 data.append('_token', "{!! csrf_token() !!}")
 
                 let formBtn = $(this) // the button that sends the reuquest (to minipulate ui)
-                // console.log(data)
-                // return
                 $.ajax({
                     method: 'POST',
                     url: "{!! route('admin.helpers.store') !!}",
