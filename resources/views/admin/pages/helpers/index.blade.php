@@ -288,8 +288,8 @@
                     },
                     success: function(response) {
                         successMessage("@lang('general.create_success')")
-                        $('#addCategoryModal').modal('toggle')
-                        document.getElementById("addCategoryForm").reset();
+                        $('#addHelperModal').modal('toggle')
+                        document.getElementById("addHelperForm").reset();
                     },
                     error: function(response) {
                         errorMessage("@lang('general.error')")
