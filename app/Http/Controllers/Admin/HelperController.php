@@ -25,7 +25,7 @@ class HelperController extends Controller
     }
     public function store(HelperStoreRequest $request)
     {
-        return $this->filesUploadService->test();
+        // return $this->filesUploadService->test();
         // take validated data
         $data['name'] = $request->validated('name');
         $data['age'] = $request->validated('age');
@@ -33,8 +33,10 @@ class HelperController extends Controller
         $data['category_id'] = $request->validated('category_id');
         $data['sku'] = Str::random(4) . '-' . uniqid();
 
-        // initaite a helper to work on avatar , video , and resume
+
+        if ($request->hasFile('video')) {
+            return response('video here');
+        }
         $helper = Helper::create($data);
-        return http_response_code(200);
     }
 }

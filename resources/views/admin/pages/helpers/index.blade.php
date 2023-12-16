@@ -289,7 +289,6 @@
                     success: function(response) {
                         successMessage("@lang('general.create_success')")
                         $('#addHelperModal').modal('toggle')
-                        document.getElementById("addHelperForm").reset();
                     },
                     error: function(response) {
                         errorMessage("@lang('general.error')")
@@ -321,9 +320,12 @@
                         displayErrors(response, false)
                     },
                 }).done(function() {
+                    $('#name').val('')
+                    $('#nationality').val('').trigger('change')
+                    $('#age').val('')
+                    $('#category_id').val('')
                     formBtn.html("@lang('general.create')")
                     formBtn.prop('disabled', false)
-                    $('#addCategoryModal').modal('toggle')
                 }).fail(function() {
                     formBtn.html("@lang('general.create')")
                     formBtn.prop('disabled', false)
