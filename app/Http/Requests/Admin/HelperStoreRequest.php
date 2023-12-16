@@ -14,6 +14,13 @@ class HelperStoreRequest extends FormRequest
         return true;
     }
 
+    //modify the category name from category to category_id
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'category_id' => $this->category
+        ]);
+    }
     /**
      * Get the validation rules that apply to the request.
      *
@@ -29,7 +36,19 @@ class HelperStoreRequest extends FormRequest
             'video' => 'required|mimes:mp4',
             'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'resume' => 'required|mimes:pdf|max:2048'
+        ];
+    }
 
+    public function attributes()
+    {
+        return [
+            'category_id' => trans('helpers.category'),
+            'name' => trans('helpers.name'),
+            'age' => trans('helpers.age'),
+            'resume' => trans('helpers.resume'),
+            'nationality' => trans('helpers.nationality'),
+            'video' => trans('helpers.video'),
+            'avatar' => trans('helpers.avatar'),
         ];
     }
 }

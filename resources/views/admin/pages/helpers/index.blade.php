@@ -9,11 +9,9 @@
     <link rel="stylesheet" href="{{ asset('/dashboard/assets/vendor/libs/dropzone/dropzone.css') }}" />
 
     <style>
-        .dropzone .dz-preview.dz-image-preview {
-            width: 100%;
-            height: 100%;
-            max-width: none;
-            max-height: none;
+        .select2-error-class {
+            border: 1px solid red;
+            box-shadow: none;
         }
     </style>
 @endsection
@@ -59,7 +57,7 @@
                             <div class="col-12 col-md-6">
                                 <div class="form-group mb-3">
                                     <label for="nationality" class="form-label">@lang('helpers.nationality')</label>
-                                    <select name="nationality" id="nationality" class="form-select">
+                                    <select name="nationalityy" id="nationality" class="form-select">
                                         <option value="">@lang('general.please_select')</option>
                                     </select>
                                 </div>
@@ -284,6 +282,10 @@
                     },
                     error: function(response) {
                         errorMessage("@lang('general.error')")
+                        // validation for select2 
+                        if ($('#nationality').val() == '') {
+                            $('#select2-nationality-container').addClass('select2-error-class')
+                        }
                         displayErrors(response, false)
                     },
                 }).done(function() {
