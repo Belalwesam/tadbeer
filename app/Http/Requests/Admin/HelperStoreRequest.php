@@ -13,14 +13,6 @@ class HelperStoreRequest extends FormRequest
     {
         return true;
     }
-
-    //modify the category name from category to category_id
-    public function prepareForValidation()
-    {
-        $this->merge([
-            'category_id' => $this->category
-        ]);
-    }
     /**
      * Get the validation rules that apply to the request.
      *

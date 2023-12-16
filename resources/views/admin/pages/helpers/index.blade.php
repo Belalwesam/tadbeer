@@ -13,6 +13,10 @@
             border: 1px solid red;
             box-shadow: none;
         }
+
+        .file-upload-error {
+            border-color: red !important;
+        }
     </style>
 @endsection
 
@@ -251,6 +255,13 @@
 
             //create new ajax request
             $('body').on('click', '#submit-create-btn', function() {
+                //reset the errorr messages before sending the form
+                $('.file-upload-error').each(function() {
+                    $(this).removeClass('file-upload-error')
+                })
+                $('.file-upload-error-message').each(function() {
+                    $(this).remove()
+                })
                 let data = new FormData();
                 //append to form data
                 data.append('name', $('#name').val())
@@ -285,6 +296,27 @@
                         // validation for select2 
                         if ($('#nationality').val() == '') {
                             $('#select2-nationality-container').addClass('select2-error-class')
+                        }
+
+                        // display errors in case video , avatar or resume has an error
+                        let errors = (response.responseJSON.errors)
+                        if (errors.hasOwnProperty('avatar')) {
+                            $('#dropzone-basic-avatar').addClass('file-upload-error')
+                            let errorElement =
+                                `<small class="text-danger file-upload-error-message">${errors.avatar[0]}</small>`
+                            $('#dropzone-basic-avatar').after(errorElement)
+                        }
+                        if (errors.hasOwnProperty('video')) {
+                            $('#dropzone-basic-video').addClass('file-upload-error')
+                            let errorElement =
+                                `<small class="text-danger file-upload-error-message">${errors.video[0]}</small>`
+                            $('#dropzone-basic-video').after(errorElement)
+                        }
+                        if (errors.hasOwnProperty('resume')) {
+                            $('#dropzone-basic-resume').addClass('file-upload-error')
+                            let errorElement =
+                                `<small class="text-danger file-upload-error-message">${errors.resume[0]}</small>`
+                            $('#dropzone-basic-resume').after(errorElement)
                         }
                         displayErrors(response, false)
                     },
