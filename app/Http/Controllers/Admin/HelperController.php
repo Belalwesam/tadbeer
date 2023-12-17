@@ -35,8 +35,15 @@ class HelperController extends Controller
 
 
         if ($request->hasFile('video')) {
-            return response('video here');
+            $data['video'] = $this->filesUploadService->uploadFile($request->file('video'), '/videos');
         }
-        $helper = Helper::create($data);
+        if ($request->hasFile('avatar')) {
+            $data['avatar'] = $this->filesUploadService->uploadFile($request->file('avatar'), '/avatars');
+        }
+        if ($request->hasFile('resume')) {
+            $data['resume'] = $this->filesUploadService->uploadFile($request->file('resume'), '/resumes');
+        }
+        Helper::create($data);
+        return http_response_code(200);
     }
 }

@@ -2,10 +2,13 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Storage;
+
 class FilesUploadService
 {
-    public function test()
+    public function uploadFile($file, $path)
     {
-        return 'this is a test for service class';
+        $fileName = Storage::disk('public')->put($path, $file);
+        return $fileName;
     }
 }
