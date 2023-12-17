@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\FilesUploadService;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Admin\HelperStoreRequest;
 
 class HelperController extends Controller
@@ -50,6 +51,54 @@ class HelperController extends Controller
     public function getHelpersList(Request $request)
     {
         $helpers = Helper::orderBy('id', 'desc')->get();
+
+        # modify the look of some data and controllers 
+        $helpers->map(function ($helper) {
+            // localized sentences
+            $edit_text = trans('general.edit');
+            $delete_text = trans('general.delete');
+
+            // modify the avatar video , and resume endpoints to be a url
+            $helper->avatar = asset(Storage::url($helper->avatar));
+            $helper->video = asset(Storage::url($helper->video));
+            $helper->resume = asset(Storage::url($helper->resume));
+            $helper->category = $helper->category;
+
+            // check if the admin has ability to do these actions
+            if (auth('admin')->user()->hasAbilityTo('edit helpers')) {
+                $helper->actions = <<<HTML
+                    <div class="dropdown btn-pinned">
+                            <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <i class="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" style="">
+                                <li>
+                                    <a class="dropdown-item edit-btn"
+                                    data-id="{$helper->id}"
+                                    data-name = "{$helper->name}"
+                                    data-bs-toggle="modal"
+                                    data-bs-target = "#editCategoryModal"
+                                    href="javascript:void(0);">
+                                <i class="bx bx-edit me-0 me-2 text-primary"></i>
+                                        {$edit_text}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item delete-btn"
+                                        data-id = "{$helper->id}"
+                                        href="javascript:void(0);">
+                                        <i class="bx bx-trash me-0 me-2 text-danger"></i>
+                                        {$delete_text}
+                                    </a>
+                                </li>
+                            </ul>
+                    </div>
+            HTML;
+            }
+
+            return $helper;
+        });
         return $helpers;
     }
 }

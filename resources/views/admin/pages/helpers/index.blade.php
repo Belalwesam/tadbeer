@@ -22,7 +22,7 @@
 
 {{-- main content --}}
 @section('content')
-    <div class="card">
+    <div class="card mb-3">
         <div class="card-header border-bottom d-flex align-items-center justify-content-between">
             <h5 class="card-title mb-0">@lang('nav.helpers')</h5>
             {{-- check if auth user has ability to create  --}}
@@ -37,6 +37,46 @@
                 <h6 class="card-title mb-0">@lang('helpers.filter')</h6>
             </div>
         </div>
+    </div>
+
+    {{-- helpers ontainer --}}
+
+    <div class="row g-4 helpers-container">
+        {{-- <div class="col-xl-4 col-lg-6 col-md-6">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="dropdown btn-pinned">
+                        <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="bx bx-dots-vertical-rounded"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" style="">
+                            <li><a class="dropdown-item" href="javascript:void(0);">Share connection</a></li>
+                            <li><a class="dropdown-item" href="javascript:void(0);">Block connection</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a></li>
+                        </ul>
+                    </div>
+                    <div class="mx-auto mb-3">
+                        <img src="/dashboard/assets/img/avatars/3.png" alt="Avatar Image" class="rounded-circle w-px-100">
+                    </div>
+                    <h5 class="mb-1 card-title">Mark Gilbert</h5>
+                    <span>UI Designer</span>
+                    <div class="d-flex align-items-center justify-content-center my-3 gap-2">
+                        <a href="javascript:;" class="me-1"><span class="badge bg-label-secondary">24 Years Old</span></a>
+                        <a href="javascript:;"><span class="badge bg-label-warning">United States</span></a>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-center">
+                        <a href="javascript:;" class="btn btn-primary d-flex align-items-center me-3"><i
+                                class="bx bx-video me-1"></i>Video</a>
+                        <a href="javascript:;" class="btn btn-label-secondary d-flex align-items-center"><i
+                                class="bx bxs-file-pdf me-1"></i>Resume</a>
+                    </div>
+                </div>
+            </div>
+        </div> --}}
     </div>
 
     <!-- Add Modal -->
@@ -193,6 +233,55 @@
                 }
             })
 
+
+            // fill helpers page function (helpers list)
+
+            $.ajax({
+                method: "GET",
+                url: "{!! route('admin.helpers.helpers_list') !!}",
+                success: function(response) {
+                    let output = ``
+                    response.forEach(helper => {
+                        output += `
+                        <div class="col-xl-4 col-lg-6 col-md-6">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    ${helper.actions}
+                                    <div class="mx-auto mb-3">
+                                        <img src="${helper.avatar}" alt="Avatar Image #${helper.id}" class="rounded-circle w-px-100">
+                                    </div>
+                                    <h5 class="mb-1 card-title">${helper.name}</h5>
+                                    <span>${helper.category.name}</span>
+                                    <div class="d-flex align-items-center justify-content-center my-3 gap-2">
+                                        <a href="javascript:;" class="me-1"><span class="badge bg-label-secondary">${helper.age} Years Old</span></a>
+                                        <a href="javascript:;"><span class="badge bg-label-success">${helper.nationality}</span></a>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <a href="javascript:;" class="btn btn-primary d-flex align-items-center me-3"><i
+                                                class="bx bx-video me-1"></i>Video</a>
+                                        <a href="javascript:;" class="btn btn-label-secondary d-flex align-items-center"><i
+                                                class="bx bxs-file-pdf me-1"></i>Resume</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        `
+                    })
+
+                    $('.helpers-container').append(output)
+                },
+                error: function(response) {
+                    Swal.fire({
+                        title: "Error",
+                        text: "@lang('general.error')",
+                        icon: "error",
+                        customClass: {
+                            confirmButton: "btn btn-primary",
+                        },
+                        buttonsStyling: false,
+                    });
+                }
+            })
 
             //initialise dropzone.js
             const previewTemplate = `<div class="dz-preview dz-file-preview">
