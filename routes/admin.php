@@ -76,6 +76,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
                     Route::post('/', 'store')->name('store');
                     Route::patch('/', 'update')->name('update');
                     Route::delete('/', 'destroy')->name('delete');
+                    Route::get('/helpers-list', 'getHelpersList')->name('helpers_list'); // get role users for datatable
                 });
             });
         });

@@ -46,4 +46,10 @@ class HelperController extends Controller
         Helper::create($data);
         return http_response_code(200);
     }
+
+    public function getHelpersList(Request $request)
+    {
+        $helpers = Helper::orderBy('id', 'desc')->get();
+        return $helpers;
+    }
 }
