@@ -41,7 +41,7 @@
 
     {{-- helpers ontainer --}}
 
-    <div class="row g-4 helpers-container">
+    <div class="row mt-0 g-4 helpers-container" id="helpers-container" style="min-height:250px">
         {{-- <div class="col-xl-4 col-lg-6 col-md-6">
             <div class="card">
                 <div class="card-body text-center">
@@ -207,6 +207,8 @@
 @section('script-vendor')
     <script src="{{ asset('/dashboard/assets/vendor/libs/select2/select2.js') }}"></script>
     <script src="{{ asset('/dashboard/assets/vendor/libs/dropzone/dropzone.js') }}"></script>
+    <script src="{{ asset('/dashboard/assets/vendor/libs/block-ui/block-ui.js') }}"></script>
+
 @endsection
 @section('script')
     <script>
@@ -234,55 +236,69 @@
             })
 
 
-            // fill helpers page function (helpers list)
-
-            $.ajax({
-                method: "GET",
-                url: "{!! route('admin.helpers.helpers_list') !!}",
-                success: function(response) {
-                    let output = ``
-                    response.forEach(helper => {
-                        output += `
-                        <div class="col-xl-4 col-lg-6 col-md-6">
-                            <div class="card">
-                                <div class="card-body text-center">
-                                    ${helper.actions}
-                                    <div class="mx-auto mb-3">
-                                        <img src="${helper.avatar}" alt="Avatar Image #${helper.id}" class="rounded-circle w-px-100">
-                                    </div>
-                                    <h5 class="mb-1 card-title">${helper.name}</h5>
-                                    <span>${helper.category.name}</span>
-                                    <div class="d-flex align-items-center justify-content-center my-3 gap-2">
-                                        <a href="javascript:;" class="me-1"><span class="badge bg-label-secondary">${helper.age} Years Old</span></a>
-                                        <a href="javascript:;"><span class="badge bg-label-success">${helper.nationality}</span></a>
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-center">
-                                        <a href="javascript:;" class="btn btn-primary d-flex align-items-center me-3"><i
-                                                class="bx bx-video me-1"></i>Video</a>
-                                        <a href="javascript:;" class="btn btn-label-secondary d-flex align-items-center"><i
-                                                class="bx bxs-file-pdf me-1"></i>Resume</a>
+            // fill helpers page function (helpers list) and call it after
+            function fillHelpers() {
+                $('#helpers-container').block({
+                    message: '<div class="spinner-border text-primary" role="status"></div>',
+                    timeout: 0,
+                    css: {
+                        backgroundColor: 'transparent',
+                        border: '0'
+                    },
+                    overlayCSS: {
+                        backgroundColor: '#fff',
+                        opacity: 0.8
+                    }
+                });
+                $.ajax({
+                    method: "GET",
+                    url: "{!! route('admin.helpers.helpers_list') !!}",
+                    success: function(response) {
+                        let output = ``
+                        response.forEach(helper => {
+                            output += `
+                            <div class="col-xl-4 col-lg-6 col-md-6">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        ${helper.actions}
+                                        <div class="mx-auto mb-3">
+                                            <img src="${helper.avatar}" alt="Avatar Image #${helper.id}" class="rounded-circle w-px-100">
+                                        </div>
+                                        <h5 class="mb-1 card-title">${helper.name}</h5>
+                                        <span>${helper.category.name}</span>
+                                        <div class="d-flex align-items-center justify-content-center my-3 gap-2">
+                                            <a href="javascript:;" class="me-1"><span class="badge bg-label-secondary">${helper.age} Years Old</span></a>
+                                            <a href="javascript:;"><span class="badge bg-label-success">${helper.nationality}</span></a>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <a href="javascript:;" class="btn btn-primary d-flex align-items-center me-3"><i
+                                                    class="bx bx-video me-1"></i>Video</a>
+                                            <a href="javascript:;" class="btn btn-label-secondary d-flex align-items-center"><i
+                                                    class="bx bxs-file-pdf me-1"></i>Resume</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        `
-                    })
+                            `
+                        })
 
-                    $('.helpers-container').append(output)
-                },
-                error: function(response) {
-                    Swal.fire({
-                        title: "Error",
-                        text: "@lang('general.error')",
-                        icon: "error",
-                        customClass: {
-                            confirmButton: "btn btn-primary",
-                        },
-                        buttonsStyling: false,
-                    });
-                }
-            })
-
+                        $('.helpers-container').append(output)
+                        $('#helpers-container').unblock()
+                    },
+                    error: function(response) {
+                        Swal.fire({
+                            title: "Error",
+                            text: "@lang('general.error')",
+                            icon: "error",
+                            customClass: {
+                                confirmButton: "btn btn-primary",
+                            },
+                            buttonsStyling: false,
+                        });
+                    }
+                })
+            }
+            fillHelpers()
             //initialise dropzone.js
             const previewTemplate = `<div class="dz-preview dz-file-preview">
                         <div class="dz-details">
