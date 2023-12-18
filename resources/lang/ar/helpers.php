@@ -11,5 +11,7 @@ return [
     'nationality' => 'الجنسية',
     'resume' => 'السيرة الذاتية',
     'filter' => 'تصفية النتائج',
-    'age' => 'العمر'
+    'age' => 'العمر',
+    'short_video' => 'الفيديو',
+    'short_resume' => 'السيرة',
 ];

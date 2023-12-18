@@ -10,5 +10,8 @@ return [
     'nationality' => 'Nationality',
     'resume' => 'Personal resume',
     'filter' => 'Filter Results',
-    'age' => 'Age'
+    'age' => 'Age',
+    'short_video' => 'Video',
+    'short_resume' => 'Resume'
+
 ];
