@@ -14,4 +14,5 @@ return [
     'age' => 'العمر',
     'short_video' => 'الفيديو',
     'short_resume' => 'السيرة',
+    'year' => 'سنة'
 ];

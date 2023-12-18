@@ -12,6 +12,7 @@ return [
     'filter' => 'Filter Results',
     'age' => 'Age',
     'short_video' => 'Video',
-    'short_resume' => 'Resume'
+    'short_resume' => 'Resume',
+    'year' => 'Years Old'
 
 ];

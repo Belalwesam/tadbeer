@@ -232,7 +232,7 @@
                                         <h5 class="mb-1 card-title">${helper.name}</h5>
                                         <span>${helper.category.name}</span>
                                         <div class="d-flex align-items-center justify-content-center my-3 gap-2">
-                                            <a href="javascript:;" class="me-1"><span class="badge bg-label-secondary">${helper.age} Years Old</span></a>
+                                            <a href="javascript:;" class="me-1"><span class="badge bg-label-secondary">${helper.age} @lang('helpers.year')</span></a>
                                             <a href="javascript:;"><span class="badge bg-label-success">${helper.nationality}</span></a>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-center">
