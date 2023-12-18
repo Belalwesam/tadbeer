@@ -60,7 +60,7 @@ class HelperController extends Controller
 
             // modify the avatar video , and resume endpoints to be a url
             $helper->avatar = asset(Storage::url($helper->avatar));
-            $helper->video = asset(Storage::url($helper->video));
+            $helper->video = route('admin.helpers.helpers.show_video' , $helper->id);
             $helper->resume = asset(Storage::url($helper->resume));
             $helper->category = $helper->category;
 
@@ -100,5 +100,9 @@ class HelperController extends Controller
             return $helper;
         });
         return $helpers;
+    }
+
+    public function getHelperVideo(Helper $helper) {
+        return view('admin.pages.helpers.show-video' , compact('helper'));
     }
 }

@@ -42,7 +42,7 @@
     {{-- helpers container --}}
 
     <div class="row mt-0 g-4 helpers-container" id="helpers-container" style="min-height:250px">
-       
+
     </div>
 
     <!-- Add Modal -->
@@ -174,7 +174,6 @@
     <script src="{{ asset('/dashboard/assets/vendor/libs/select2/select2.js') }}"></script>
     <script src="{{ asset('/dashboard/assets/vendor/libs/dropzone/dropzone.js') }}"></script>
     <script src="{{ asset('/dashboard/assets/vendor/libs/block-ui/block-ui.js') }}"></script>
-
 @endsection
 @section('script')
     <script>
@@ -237,7 +236,7 @@
                                             <a href="javascript:;"><span class="badge bg-label-success">${helper.nationality}</span></a>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-center">
-                                            <a href="javascript:;" class="btn btn-primary d-flex align-items-center me-3"><i
+                                            <a href="${helper.video}" class="btn btn-primary d-flex align-items-center me-3"><i
                                                     class="bx bx-video me-1"></i>@lang('helpers.short_video')</a>
                                             <a href="${helper.resume}" target="_blank" class="btn btn-label-secondary d-flex align-items-center"><i
                                                     class="bx bxs-file-pdf me-1"></i>@lang('helpers.short_resume')</a>

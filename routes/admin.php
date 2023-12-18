@@ -77,6 +77,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
                     Route::patch('/', 'update')->name('update');
                     Route::delete('/', 'destroy')->name('delete');
                     Route::get('/helpers-list', 'getHelpersList')->name('helpers_list'); // get role users for datatable
+                    Route::get('/show-video/{helper}', 'getHelperVideo')->name('helpers.show_video'); // show video for the helper in a seperate page
                 });
             });
         });
