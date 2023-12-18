@@ -239,7 +239,7 @@
                                         <div class="d-flex align-items-center justify-content-center">
                                             <a href="javascript:;" class="btn btn-primary d-flex align-items-center me-3"><i
                                                     class="bx bx-video me-1"></i>@lang('helpers.short_video')</a>
-                                            <a href="javascript:;" class="btn btn-label-secondary d-flex align-items-center"><i
+                                            <a href="${helper.resume}" target="_blank" class="btn btn-label-secondary d-flex align-items-center"><i
                                                     class="bx bxs-file-pdf me-1"></i>@lang('helpers.short_resume')</a>
                                         </div>
                                     </div>
