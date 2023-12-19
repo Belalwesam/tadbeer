@@ -37,8 +37,8 @@
                 <h6 class="card-title mb-3">@lang('helpers.filter')</h6>
                 <div class="row">
                     <div class="col-12 col-sm-4">
-                        <input type="text" name="search_text" id="search_text" class="form-control search-input-helper"
-                            placeholder="@lang('general.search') ...">
+                        <input type="text" name="search_text" id="search_text"
+                            class="form-control text-search-input-helper" placeholder="@lang('general.search') ...">
                     </div>
                     <div class="col-12 col-sm-4">
                         <select name="search_nationality" id="search_nationality" class="form-select search-input-helper">
@@ -254,6 +254,7 @@
                     url: "{!! route('admin.helpers.helpers_list') !!}",
                     data: data,
                     success: function(response) {
+                        $('#helpers-container').html('')
                         let output = ``
                         response.forEach(helper => {
                             output += `
@@ -301,9 +302,18 @@
             fillHelpers()
 
             // the event listener for changing the search values
-            $('body').on('input' , '.search-input-helper' , function() {
+            $('body').on('input', '.search-input-helper', function() {
                 $('#helpers-container').html('')
                 fillHelpers()
+            })
+            // this one is for the text input field to avoid data overlapping
+            var timeout = null;
+            $('body').on('keyup', '.text-search-input-helper', function() {
+                $('#helpers-container').html('')
+                clearTimeout(timeout);
+                timeout = setTimeout(function() {
+                    fillHelpers()
+                }, 700);
             })
 
 

@@ -51,7 +51,22 @@ class HelperController extends Controller
     public function getHelpersList(Request $request)
     {
         // return $request->all();
-        $helpers = Helper::orderBy('id', 'desc')->get();
+        // $helpers = Helper::;
+
+        $helpers = Helper::query();
+
+        if ($request->has('nationality') && $request->filled('nationality')) {
+            $helpers = $helpers->where('nationality', $request->nationality);
+        }
+        if ($request->has('category') && $request->filled('category')) {
+            $helpers = $helpers->where('category_id', $request->category);
+        }
+        if ($request->has('text') && $request->filled('text')) {
+            $helpers = $helpers->Where('name','LIKE', "%$request->text%")
+            ->orWhere('nationality','LIKE', "%$request->text%")
+            ->orWhere('age','LIKE', "%$request->text%");
+        }
+        $helpers = $helpers->orderBy('id', 'desc')->get();
 
         # modify the look of some data and controllers 
         $helpers->map(function ($helper) {
