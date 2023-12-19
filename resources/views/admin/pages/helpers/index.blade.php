@@ -48,6 +48,9 @@
                     <div class="col-12 col-sm-4">
                         <select name="search_category" id="search_category" class="form-select">
                             <option value="">@lang('helpers.category')</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
