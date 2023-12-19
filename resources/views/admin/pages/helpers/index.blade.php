@@ -37,16 +37,16 @@
                 <h6 class="card-title mb-3">@lang('helpers.filter')</h6>
                 <div class="row">
                     <div class="col-12 col-sm-4">
-                        <input type="text" name="search_name" id="search_name" class="form-control"
+                        <input type="text" name="search_text" id="search_text" class="form-control search-input-helper"
                             placeholder="@lang('general.search') ...">
                     </div>
                     <div class="col-12 col-sm-4">
-                        <select name="search_nationality" id="search_nationality" class="form-select">
+                        <select name="search_nationality" id="search_nationality" class="form-select search-input-helper">
                             <option value="">@lang('helpers.nationality')</option>
                         </select>
                     </div>
                     <div class="col-12 col-sm-4">
-                        <select name="search_category" id="search_category" class="form-select">
+                        <select name="search_category" id="search_category" class="form-select search-input-helper">
                             <option value="">@lang('helpers.category')</option>
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -224,7 +224,7 @@
                             dropdownParent: $this.parent()
                         });
                     });
-                    
+
                 }
             })
 
@@ -243,9 +243,16 @@
                         opacity: 0.8
                     }
                 });
+
+                let data = {
+                    text: $('#search_text').val(),
+                    category: $('#search_category').val(),
+                    nationality: $('#search_nationality').val(),
+                }
                 $.ajax({
                     method: "GET",
                     url: "{!! route('admin.helpers.helpers_list') !!}",
+                    data: data,
                     success: function(response) {
                         let output = ``
                         response.forEach(helper => {
@@ -292,6 +299,13 @@
                 })
             }
             fillHelpers()
+
+            // the event listener for changing the search values
+            $('body').on('input' , '.search-input-helper' , function() {
+                console.log('changed')
+            })
+
+
             //initialise dropzone.js
             const previewTemplate = `<div class="dz-preview dz-file-preview">
                         <div class="dz-details">

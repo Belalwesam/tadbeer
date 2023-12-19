@@ -50,6 +50,7 @@ class HelperController extends Controller
 
     public function getHelpersList(Request $request)
     {
+        // return $request->all();
         $helpers = Helper::orderBy('id', 'desc')->get();
 
         # modify the look of some data and controllers 
