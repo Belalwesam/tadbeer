@@ -34,7 +34,23 @@
         </div>
         <div class="card-body">
             <div class="filter-container mt-3">
-                <h6 class="card-title mb-0">@lang('helpers.filter')</h6>
+                <h6 class="card-title mb-3">@lang('helpers.filter')</h6>
+                <div class="row">
+                    <div class="col-12 col-sm-4">
+                        <input type="text" name="search_name" id="search_name" class="form-control"
+                            placeholder="@lang('general.search') ...">
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <select name="search_nationality" id="search_nationality" class="form-select">
+                            <option value="">@lang('helpers.nationality')</option>
+                        </select>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <select name="search_category" id="search_category" class="form-select">
+                            <option value="">@lang('helpers.category')</option>
+                        </select>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -189,6 +205,7 @@
                             <option value="${country.name}">${country.name}</option>
                         `
                         $('#nationality').append(output)
+                        $('#search_nationality').append(output)
                     });
                     $('#nationality').each(function() {
                         var $this = $(this);
@@ -197,6 +214,14 @@
                             dropdownParent: $this.parent()
                         });
                     });
+                    $('#search_nationality').each(function() {
+                        var $this = $(this);
+                        $this.wrap('<div class="position-relative"></div>').select2({
+                            placeholder: "@lang('helpers.nationality')",
+                            dropdownParent: $this.parent()
+                        });
+                    });
+                    
                 }
             })
 
