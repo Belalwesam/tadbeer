@@ -302,7 +302,8 @@
 
             // the event listener for changing the search values
             $('body').on('input' , '.search-input-helper' , function() {
-                console.log('changed')
+                $('#helpers-container').html('')
+                fillHelpers()
             })
 
 
