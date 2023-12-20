@@ -283,7 +283,7 @@
                             `
                         })
 
-                        $('.helpers-container').append(output)
+                        $('.helpers-container').html(output)
                         $('#helpers-container').unblock()
                     },
                     error: function(response) {
@@ -303,13 +303,11 @@
 
             // the event listener for changing the search values
             $('body').on('input', '.search-input-helper', function() {
-                $('#helpers-container').html('')
                 fillHelpers()
             })
             // this one is for the text input field to avoid data overlapping
             var timeout = null;
             $('body').on('keyup', '.text-search-input-helper', function() {
-                $('#helpers-container').html('')
                 clearTimeout(timeout);
                 timeout = setTimeout(function() {
                     fillHelpers()
@@ -410,7 +408,19 @@
                         formBtn.prop('disabled', true)
                     },
                     success: function(response) {
-                        successMessage("@lang('general.create_success')")
+                        Swal.fire({
+                            title: "Good Job",
+                            text: "@lang('general.create_success')",
+                            icon: "success",
+                            customClass: {
+                                confirmButton: "btn btn-primary",
+                            },
+                            buttonsStyling: false,
+                        }).then(result => {
+                            if (result.value) {
+                                fillHelpers()
+                            }
+                        });
                         $('#addHelperModal').modal('toggle')
                     },
                     error: function(response) {
@@ -520,11 +530,22 @@
                         }
                         $.ajax({
                             method: 'DELETE',
-                            url: "{!! route('admin.categories.delete') !!}",
+                            url: "{!! route('admin.helpers.delete') !!}",
                             data: data,
                             success: function(response) {
-                                successMessage("@lang('general.edit_success')")
-
+                                Swal.fire({
+                                    title: "Good Job",
+                                    text: "@lang('general.delete_success')",
+                                    icon: "success",
+                                    customClass: {
+                                        confirmButton: "btn btn-primary",
+                                    },
+                                    buttonsStyling: false,
+                                }).then(result => {
+                                    if (result.value) {
+                                        fillHelpers()
+                                    }
+                                });
                             },
                             error: function(response) {
                                 errorMessage("@lang('general.error')")

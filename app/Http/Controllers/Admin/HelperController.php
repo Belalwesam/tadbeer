@@ -62,9 +62,9 @@ class HelperController extends Controller
             $helpers = $helpers->where('category_id', $request->category);
         }
         if ($request->has('text') && $request->filled('text')) {
-            $helpers = $helpers->Where('name','LIKE', "%$request->text%")
-            ->orWhere('nationality','LIKE', "%$request->text%")
-            ->orWhere('age','LIKE', "%$request->text%");
+            $helpers = $helpers->Where('name', 'LIKE', "%$request->text%")
+                ->orWhere('nationality', 'LIKE', "%$request->text%")
+                ->orWhere('age', 'LIKE', "%$request->text%");
         }
         $helpers = $helpers->orderBy('id', 'desc')->get();
 
@@ -123,5 +123,11 @@ class HelperController extends Controller
     public function getHelperVideo(Helper $helper)
     {
         return view('admin.pages.helpers.show-video', compact('helper'));
+    }
+
+    public function destroy(Request $request)
+    {
+        Helper::findOrFail($request->id)->delete();
+        return http_response_code(200);
     }
 }
