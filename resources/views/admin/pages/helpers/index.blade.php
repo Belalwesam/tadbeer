@@ -176,8 +176,8 @@
                             <div class="col-12 col-md-6">
                                 <div class="form-group mb-3">
                                     <label for="edit_name" class="form-label">@lang('helpers.name')</label>
-                                    <input type="text" name="edit_name" id="edit_name" placeholder="@lang('helpers.name')"
-                                        class="form-control">
+                                    <input type="text" name="edit_name" id="edit_name"
+                                        placeholder="@lang('helpers.name')" class="form-control">
                                 </div>
                             </div>
                             <div class="col-12 col-md-6">
@@ -212,12 +212,13 @@
                             <div class="col-12 col-md-6">
                                 <div class="mb-3">
                                     <label for="video" class="form-label">@lang('helpers.video')</label>
-                                    <form action="/upload" class="dropzone needsclick" id="dropzone-basic-video">
+                                    <form action="/upload" class="dropzone needsclick" id="dropzone-basic-video-edit">
                                         <div class="dz-message needsclick">
                                             @lang('general.drag_&_drop')
                                         </div>
                                         <div class="fallback">
-                                            <input name="edit_video" id="edit_video" type="file" accept="video/mp4" />
+                                            <input name="edit_video" id="edit_video" type="file"
+                                                accept="video/mp4" />
                                         </div>
                                     </form>
                                 </div>
@@ -225,12 +226,13 @@
                             <div class="col-12 col-md-6">
                                 <div class="mb-3">
                                     <label for="avatar" class="form-label">@lang('helpers.avatar')</label>
-                                    <form action="/upload" class="dropzone needsclick" id="dropzone-basic-avatar">
+                                    <form action="/upload" class="dropzone needsclick" id="dropzone-basic-avatar-edit">
                                         <div class="dz-message needsclick">
                                             @lang('general.drag_&_drop')
                                         </div>
                                         <div class="fallback">
-                                            <input name="edit_avatar" id="edit_avatar" type="file" accept="image/*" />
+                                            <input name="edit_avatar" id="edit_avatar" type="file"
+                                                accept="image/*" />
                                         </div>
                                     </form>
                                 </div>
@@ -238,7 +240,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="resume" class="form-label">@lang('helpers.resume')</label>
-                            <form action="/upload" class="dropzone needsclick" id="dropzone-basic-resume">
+                            <form action="/upload" class="dropzone needsclick" id="dropzone-basic-resume-edit">
                                 <div class="dz-message needsclick">
                                     @lang('general.drag_&_drop')
                                 </div>
@@ -251,7 +253,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="submit-edit-btn" class="btn btn-primary">@lang('general.update')</button>
+                    <button type="button" id="submit-edit-btn" class="btn btn-primary">@lang('general.edit')</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@lang('general.cancel')</button>
                 </div>
             </div>
@@ -432,6 +434,27 @@
                 addRemoveLinks: true,
                 maxFiles: 1
             });
+            const myDropzoneVideoEdit = new Dropzone('#dropzone-basic-video-edit', {
+                previewTemplate: previewTemplate,
+                parallelUploads: 1,
+                maxFilesize: 5,
+                addRemoveLinks: true,
+                maxFiles: 1
+            });
+            const myDropzoneAvatarEdit = new Dropzone('#dropzone-basic-avatar-edit', {
+                previewTemplate: previewTemplate,
+                parallelUploads: 1,
+                maxFilesize: 5,
+                addRemoveLinks: true,
+                maxFiles: 1
+            });
+            const myDropzoneResumeEdit = new Dropzone('#dropzone-basic-resume-edit', {
+                previewTemplate: previewTemplate,
+                parallelUploads: 1,
+                maxFilesize: 5,
+                addRemoveLinks: true,
+                maxFiles: 1
+            });
 
             let videoFile;
             myDropzoneVideo.on("addedfile", function(file) {
@@ -447,6 +470,23 @@
             myDropzoneResume.on("addedfile", function(file) {
                 // Access the selected file here
                 resumeFile = file;
+            });
+
+
+            let videoFileEdit;
+            myDropzoneVideoEdit.on("addedfile", function(file) {
+                // Access the selected file here
+                videoFileEdit = file;
+            });
+            let avatarFileEdit;
+            myDropzoneAvatarEdit.on("addedfile", function(file) {
+                // Access the selected file here
+                avatarFileEdit = file;
+            });
+            let resumeFileEdit;
+            myDropzoneResumeEdit.on("addedfile", function(file) {
+                // Access the selected file here
+                resumeFileEdit = file;
             });
 
 
@@ -554,11 +594,25 @@
             })
             //edit ajax request
             $('body').on('click', '#submit-edit-btn', function() {
-                let data = {
-                    _token: "{!! csrf_token() !!}",
-                    name: $('#edit_name').val(),
-                    id: $('#edit_id').val(),
-                }
+                //reset the errorr messages before sending the form
+                $('.file-upload-error').each(function() {
+                    $(this).removeClass('file-upload-error')
+                })
+                $('.file-upload-error-message').each(function() {
+                    $(this).remove()
+                })
+                let data = new FormData();
+                //append to form data
+                data.append('name', $('#edit_name').val())
+                data.append('nationality', $('#edit_nationality').val())
+                data.append('age', $('#edit_age').val())
+                data.append('category_id', $('#edit_category_id').val())
+                data.append('video', videoFileEdit)
+                data.append('avatar', avatarFileEdit)
+                data.append('resume', resumeFileEdit)
+                data.append('_token', "{!! csrf_token() !!}")
+                console.log(data)
+                return
                 let formBtn = $(this) // the button that sends the reuquest (to minipulate ui)
 
                 $.ajax({
