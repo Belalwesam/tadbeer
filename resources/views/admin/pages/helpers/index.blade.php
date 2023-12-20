@@ -175,30 +175,30 @@
                         <div class="row">
                             <div class="col-12 col-md-6">
                                 <div class="form-group mb-3">
-                                    <label for="name" class="form-label">@lang('helpers.name')</label>
-                                    <input type="text" name="name" id="name" placeholder="@lang('helpers.name')"
+                                    <label for="edit_name" class="form-label">@lang('helpers.name')</label>
+                                    <input type="text" name="edit_name" id="edit_name" placeholder="@lang('helpers.name')"
                                         class="form-control">
                                 </div>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-group mb-3">
-                                    <label for="nationality" class="form-label">@lang('helpers.nationality')</label>
-                                    <select name="nationalityy" id="nationality" class="form-select">
+                                    <label for="edit_nationality" class="form-label">@lang('helpers.nationality')</label>
+                                    <select name="edit_nationalityy" id="edit_nationality" class="form-select">
                                         <option value="">@lang('general.please_select')</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-group mb-3">
-                                    <label for="number" class="form-label">@lang('helpers.age')</label>
-                                    <input type="number" min="1" name="age" id="age"
+                                    <label for="edit_age" class="form-label">@lang('helpers.age')</label>
+                                    <input type="number" min="1" name="edit_age" id="edit_age"
                                         class="form-control" placeholder="@lang('helpers.age')">
                                 </div>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-group mb-3">
-                                    <label for="category_id" class="form-label">@lang('helpers.category')</label>
-                                    <select name="category_id" id="category_id" class="form-select">
+                                    <label for="edit_category_id" class="form-label">@lang('helpers.category')</label>
+                                    <select name="edit_category_id" id="edit_category_id" class="form-select">
                                         <option value="">@lang('general.please_select')</option>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -217,7 +217,7 @@
                                             @lang('general.drag_&_drop')
                                         </div>
                                         <div class="fallback">
-                                            <input name="video" id="video" type="file" accept="video/mp4" />
+                                            <input name="edit_video" id="edit_video" type="file" accept="video/mp4" />
                                         </div>
                                     </form>
                                 </div>
@@ -230,7 +230,7 @@
                                             @lang('general.drag_&_drop')
                                         </div>
                                         <div class="fallback">
-                                            <input name="avatar" id="avatar" type="file" accept="image/*" />
+                                            <input name="edit_avatar" id="edit_avatar" type="file" accept="image/*" />
                                         </div>
                                     </form>
                                 </div>
@@ -243,14 +243,15 @@
                                     @lang('general.drag_&_drop')
                                 </div>
                                 <div class="fallback">
-                                    <input name="resume" id="resume" type="file" accept=".pdf" />
+                                    <input name="edit_resume" id="edit_resume" type="file" accept=".pdf" />
                                 </div>
                             </form>
                         </div>
+                        <input type="hidden" name="edit_id" id="edit_id">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="submit-create-btn" class="btn btn-primary">@lang('general.create')</button>
+                    <button type="button" id="submit-edit-btn" class="btn btn-primary">@lang('general.update')</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@lang('general.cancel')</button>
                 </div>
             </div>
@@ -278,9 +279,17 @@
                             <option value="${country.name}">${country.name}</option>
                         `
                         $('#nationality').append(output)
+                        $('#edit_nationality').append(output)
                         $('#search_nationality').append(output)
                     });
                     $('#nationality').each(function() {
+                        var $this = $(this);
+                        $this.wrap('<div class="position-relative"></div>').select2({
+                            placeholder: "@lang('general.please_select')",
+                            dropdownParent: $this.parent()
+                        });
+                    });
+                    $('#edit_nationality').each(function() {
                         var $this = $(this);
                         $this.wrap('<div class="position-relative"></div>').select2({
                             placeholder: "@lang('general.please_select')",
@@ -537,8 +546,11 @@
 
             //populate table when pressing edit admin (from table)
             $('body').on('click', '.edit-btn', function() {
-                $('#edit_name').val($(this).data('name'))
                 $('#edit_id').val($(this).data('id'))
+                $('#edit_name').val($(this).data('name'))
+                $('#edit_age').val($(this).data('age'))
+                $('#edit_category_id').val($(this).data('category'))
+                $('#edit_nationality').val($(this).data('nationality')).trigger('change')
             })
             //edit ajax request
             $('body').on('click', '#submit-edit-btn', function() {

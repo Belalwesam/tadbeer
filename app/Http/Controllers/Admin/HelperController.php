@@ -93,8 +93,11 @@ class HelperController extends Controller
                                     <a class="dropdown-item edit-btn"
                                     data-id="{$helper->id}"
                                     data-name = "{$helper->name}"
+                                    data-nationality = "{$helper->nationality}"
+                                    data-category = "{$helper->category_id}"
+                                    data-age = "{$helper->age}"
                                     data-bs-toggle="modal"
-                                    data-bs-target = "#editCategoryModal"
+                                    data-bs-target = "#editHelperModal"
                                     href="javascript:void(0);">
                                 <i class="bx bx-edit me-0 me-2 text-primary"></i>
                                         {$edit_text}
