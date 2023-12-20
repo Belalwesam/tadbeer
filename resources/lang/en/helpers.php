@@ -3,6 +3,7 @@ return [
     'helper' => 'Helper',
     'helpers' => 'Helpers',
     'add_helper' => 'Add New Helper',
+    'edit_helper' => 'Edit Helper',
     'name' => 'Name',
     'category' => 'Category',
     'video' => 'Demonstration Video',

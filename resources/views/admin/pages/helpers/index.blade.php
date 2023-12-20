@@ -161,26 +161,96 @@
     </div>
 
     <!-- Edit Modal -->
-    <div class="modal fade" id="editCategoryModal" tabindex="-1" aria-labelledby="editCategoryModalLabel"
+    <div class="modal fade" id="editHelperModal" tabindex="-1" aria-labelledby="editHelperModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editCategoryModalLabel">@lang('general.edit')</h5>
+                    <h5 class="modal-title" id="editHelperModalLabel">@lang('helpers.edit_helper')</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="#" id="editCategoryForm">
-                        <div class="form-group mb-3">
-                            <label for="edit_name" class="form-label">@lang('categories.name')</label>
-                            <input type="text" name="edit_name" placeholder="@lang('categories.name')" id="edit_name"
-                                class="form-control">
+                    <div action="" id="editHelperForm">
+
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="name" class="form-label">@lang('helpers.name')</label>
+                                    <input type="text" name="name" id="name" placeholder="@lang('helpers.name')"
+                                        class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="nationality" class="form-label">@lang('helpers.nationality')</label>
+                                    <select name="nationalityy" id="nationality" class="form-select">
+                                        <option value="">@lang('general.please_select')</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="number" class="form-label">@lang('helpers.age')</label>
+                                    <input type="number" min="1" name="age" id="age"
+                                        class="form-control" placeholder="@lang('helpers.age')">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="category_id" class="form-label">@lang('helpers.category')</label>
+                                    <select name="category_id" id="category_id" class="form-select">
+                                        <option value="">@lang('general.please_select')</option>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                        <input type="hidden" id="edit_id">
-                    </form>
+
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="video" class="form-label">@lang('helpers.video')</label>
+                                    <form action="/upload" class="dropzone needsclick" id="dropzone-basic-video">
+                                        <div class="dz-message needsclick">
+                                            @lang('general.drag_&_drop')
+                                        </div>
+                                        <div class="fallback">
+                                            <input name="video" id="video" type="file" accept="video/mp4" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="avatar" class="form-label">@lang('helpers.avatar')</label>
+                                    <form action="/upload" class="dropzone needsclick" id="dropzone-basic-avatar">
+                                        <div class="dz-message needsclick">
+                                            @lang('general.drag_&_drop')
+                                        </div>
+                                        <div class="fallback">
+                                            <input name="avatar" id="avatar" type="file" accept="image/*" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="resume" class="form-label">@lang('helpers.resume')</label>
+                            <form action="/upload" class="dropzone needsclick" id="dropzone-basic-resume">
+                                <div class="dz-message needsclick">
+                                    @lang('general.drag_&_drop')
+                                </div>
+                                <div class="fallback">
+                                    <input name="resume" id="resume" type="file" accept=".pdf" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="submit-edit-btn" class="btn btn-primary">@lang('general.edit')</button>
+                    <button type="button" id="submit-create-btn" class="btn btn-primary">@lang('general.create')</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@lang('general.cancel')</button>
                 </div>
             </div>
