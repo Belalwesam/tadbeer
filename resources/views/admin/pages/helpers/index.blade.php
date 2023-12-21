@@ -74,7 +74,7 @@
 
     <div class="custome-pagination-container mt-5">
         <ul class="pagination justify-content-start" id="pagination-list-element">
-           {{--  <li class="page-item prev">
+            {{--  <li class="page-item prev">
                 <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-left"></i></a>
             </li>
             <li class="page-item">
@@ -128,8 +128,8 @@
                             <div class="col-12 col-md-6">
                                 <div class="form-group mb-3">
                                     <label for="number" class="form-label">@lang('helpers.age')</label>
-                                    <input type="number" min="1" name="age" id="age"
-                                        class="form-control" placeholder="@lang('helpers.age')">
+                                    <input type="number" min="1" name="age" id="age" class="form-control"
+                                        placeholder="@lang('helpers.age')">
                                 </div>
                             </div>
                             <div class="col-12 col-md-6">
@@ -346,6 +346,7 @@
             function generatePagination(data) {
                 let total_results = data.total_results;
                 let total_pages = data.total_pages
+                let current_page = +data.current_page
                 $('#pagination-list-element').html('');
                 //fill the results boxes under the search filter box
                 $('#results-number-placeholder').html(total_results)
@@ -355,7 +356,15 @@
 
                 if (total_pages > 1) {
                     if (total_pages >= 2) {
-
+                        let output = ``
+                        for (let i = 1; i <= total_pages; i++) {
+                            output += `
+                            <li class="page-item ${i === current_page ? 'active' : ''}">
+                                <a class="page-link" id="pagination-nav" href="javascript:void(0);" data-page = '${i}'>${i}</a>
+                            </li>   
+                        `
+                        }
+                        $('#pagination-list-element').html(output);
                     }
                 }
             }
@@ -433,6 +442,12 @@
                 })
             }
             fillHelpers()
+
+            // run the pagination 
+            $('body').on('click', '#pagination-nav', function() {
+                let page = $(this).data('page')
+                fillHelpers(page);
+            })
 
             // the event listener for changing the search values
             $('body').on('input', '.search-input-helper', function() {

@@ -75,7 +75,7 @@ class HelperController extends Controller
         $total_pages = ceil($total_results / $per_page);
         $helpers = $helpers->offset(($page - 1) * $per_page)
             ->limit($per_page)
-            ->orderBy('id', 'desc')->get();
+            ->orderBy('id', 'asc')->get();
 
         # modify the look of some data and controllers 
         $helpers->map(function ($helper) {
