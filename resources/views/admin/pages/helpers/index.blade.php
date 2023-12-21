@@ -591,6 +591,15 @@
                 $('#edit_age').val($(this).data('age'))
                 $('#edit_category_id').val($(this).data('category'))
                 $('#edit_nationality').val($(this).data('nationality')).trigger('change')
+                $('.file-upload-error').each(function() {
+                    $(this).removeClass('file-upload-error')
+                })
+                $('.file-upload-error-message').each(function() {
+                    $(this).remove()
+                })
+                myDropzoneVideoEdit.removeAllFiles()
+                myDropzoneAvatarEdit.removeAllFiles()
+                myDropzoneResumeEdit.removeAllFiles()
                 videoFileEdit = null
                 videoAvatarEdit = null
                 videoResumeEdit = null
@@ -646,7 +655,31 @@
                         $('#editHelperModal').modal('toggle')
                     },
                     error: function(response) {
-                        errorMessage("@lang('general.error')")
+                        if ($('#edit_nationality').val() == '') {
+                            $('#select2-edit_nationality-container').addClass(
+                                'select2-error-class')
+                        }
+
+                        // display errors in case video , avatar or resume has an error
+                        let errors = (response.responseJSON.errors)
+                        if (errors.hasOwnProperty('avatar')) {
+                            $('#dropzone-basic-avatar-edit').addClass('file-upload-error')
+                            let errorElement =
+                                `<small class="text-danger file-upload-error-message">${errors.avatar[0]}</small>`
+                            $('#dropzone-basic-avatar-edit').after(errorElement)
+                        }
+                        if (errors.hasOwnProperty('video')) {
+                            $('#dropzone-basic-video-edit').addClass('file-upload-error')
+                            let errorElement =
+                                `<small class="text-danger file-upload-error-message">${errors.video[0]}</small>`
+                            $('#dropzone-basic-video-edit').after(errorElement)
+                        }
+                        if (errors.hasOwnProperty('resume')) {
+                            $('#dropzone-basic-resume-edit').addClass('file-upload-error')
+                            let errorElement =
+                                `<small class="text-danger file-upload-error-message">${errors.resume[0]}</small>`
+                            $('#dropzone-basic-resume-edit').after(errorElement)
+                        }
                         displayErrors(response, true)
                     },
                 }).done(function() {
