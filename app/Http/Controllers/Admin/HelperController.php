@@ -55,7 +55,10 @@ class HelperController extends Controller
         // $helpers = Helper::;
 
         $helpers = Helper::query();
-
+        $page = $request->page;
+        $per_page = 9;
+        $total_count = $helpers->count();
+        $total_pages = ceil($total_count / $per_page);
         if ($request->has('nationality') && $request->filled('nationality')) {
             $helpers = $helpers->where('nationality', $request->nationality);
         }
@@ -67,7 +70,11 @@ class HelperController extends Controller
                 ->orWhere('nationality', 'LIKE', "%$request->text%")
                 ->orWhere('age', 'LIKE', "%$request->text%");
         }
-        $helpers = $helpers->orderBy('id', 'desc')->get();
+
+        $total_results = $helpers->count();
+        $helpers = $helpers->offset(($page - 1) * $per_page)
+            ->limit($per_page)
+            ->orderBy('id', 'desc')->get();
 
         # modify the look of some data and controllers 
         $helpers->map(function ($helper) {
@@ -121,7 +128,7 @@ class HelperController extends Controller
 
             return $helper;
         });
-        return $helpers;
+        return ["helpers" => $helpers , "total_pages" => $total_pages , "total_results" => $total_results];
     }
 
     public function getHelperVideo(Helper $helper)

@@ -308,10 +308,12 @@
 
                 }
             })
-
+            function generatePagination(data) {
+                console.log(data)
+            }
 
             // fill helpers page function (helpers list) and call it after
-            function fillHelpers() {
+            function fillHelpers(page = 1) {
                 $('#helpers-container').block({
                     message: '<div class="spinner-border text-primary" role="status"></div>',
                     timeout: 0,
@@ -329,15 +331,17 @@
                     text: $('#search_text').val(),
                     category: $('#search_category').val(),
                     nationality: $('#search_nationality').val(),
+                    page:page
                 }
                 $.ajax({
                     method: "GET",
                     url: "{!! route('admin.helpers.helpers_list') !!}",
                     data: data,
                     success: function(response) {
+                        generatePagination(response)
                         $('#helpers-container').html('')
                         let output = ``
-                        response.forEach(helper => {
+                        response.helpers.forEach(helper => {
                             output += `
                             <div class="col-xl-4 col-lg-6 col-md-6">
                                 <div class="card">
