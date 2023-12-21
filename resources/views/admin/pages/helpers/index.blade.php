@@ -591,6 +591,9 @@
                 $('#edit_age').val($(this).data('age'))
                 $('#edit_category_id').val($(this).data('category'))
                 $('#edit_nationality').val($(this).data('nationality')).trigger('change')
+                videoFileEdit = null
+                videoAvatarEdit = null
+                videoResumeEdit = null
             })
             //edit ajax request
             $('body').on('click', '#submit-edit-btn', function() {
@@ -604,6 +607,7 @@
                 let data = new FormData();
                 //append to form data
                 data.append('name', $('#edit_name').val())
+                data.append('id', $('#edit_id').val())
                 data.append('nationality', $('#edit_nationality').val())
                 data.append('age', $('#edit_age').val())
                 data.append('category_id', $('#edit_category_id').val())
@@ -625,7 +629,7 @@
 
                 $.ajax({
                     method: 'PATCH',
-                    url: "{!! route('admin.categories.update') !!}",
+                    url: "{!! route('admin.helpers.update') !!}",
                     data: data,
                     beforeSend: function() {
                         formBtn.html(

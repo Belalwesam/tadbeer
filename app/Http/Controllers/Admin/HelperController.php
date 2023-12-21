@@ -128,6 +128,9 @@ class HelperController extends Controller
         return view('admin.pages.helpers.show-video', compact('helper'));
     }
 
+    public function update(Request $request) {
+
+    }
     public function destroy(Request $request)
     {
         Helper::findOrFail($request->id)->delete();
