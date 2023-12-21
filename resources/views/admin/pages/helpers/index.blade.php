@@ -651,7 +651,19 @@
                         formBtn.prop('disabled', true)
                     },
                     success: function(response) {
-                        successMessage("@lang('general.edit_success')")
+                        Swal.fire({
+                            title: "Good Job",
+                            text: "@lang('general.edit_success')",
+                            icon: "success",
+                            customClass: {
+                                confirmButton: "btn btn-primary",
+                            },
+                            buttonsStyling: false,
+                        }).then(result => {
+                            if (result.value) {
+                                fillHelpers()
+                            }
+                        });
                         $('#editHelperModal').modal('toggle')
                     },
                     error: function(response) {
