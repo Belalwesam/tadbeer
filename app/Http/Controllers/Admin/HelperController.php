@@ -57,8 +57,8 @@ class HelperController extends Controller
         $helpers = Helper::query();
         $page = $request->page;
         $per_page = 9;
-        $total_count = $helpers->count();
-        $total_pages = ceil($total_count / $per_page);
+        // $total_count = $helpers->count();
+       
         if ($request->has('nationality') && $request->filled('nationality')) {
             $helpers = $helpers->where('nationality', $request->nationality);
         }
@@ -72,6 +72,7 @@ class HelperController extends Controller
         }
 
         $total_results = $helpers->count();
+        $total_pages = ceil($total_results / $per_page);
         $helpers = $helpers->offset(($page - 1) * $per_page)
             ->limit($per_page)
             ->orderBy('id', 'desc')->get();
@@ -128,7 +129,7 @@ class HelperController extends Controller
 
             return $helper;
         });
-        return ["helpers" => $helpers , "total_pages" => $total_pages , "total_results" => $total_results];
+        return ["helpers" => $helpers , "total_pages" => $total_pages , "total_results" => $total_results , "current_page" => $page];
     }
 
     public function getHelperVideo(Helper $helper)

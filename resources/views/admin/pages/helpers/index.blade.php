@@ -33,7 +33,7 @@
             @endif
         </div>
         <div class="card-body">
-            <div class="filter-container mt-3">
+            <div class="filter-container mt-3 pb-3 border-bottom">
                 <h6 class="card-title mb-3">@lang('helpers.filter')</h6>
                 <div class="row">
                     <div class="col-12 col-sm-4">
@@ -55,13 +55,47 @@
                     </div>
                 </div>
             </div>
+            <div class="fetch-results d-flex justify-content-between px-2 pt-2">
+                <div class="total-results-number">
+                    <small class="text-light fw-semibold">Total Results : <span id="results-number-placeholder"
+                            class="fw-bold text-dark"></span></small>
+                </div>
+                <div class="results-per-page">
+                    <small class="text-light fw-semibold">Total Pages : <span id="total-pages-placeholder"
+                            class="fw-bold text-dark"></span></small>
+                </div>
+            </div>
         </div>
     </div>
 
+
     {{-- helpers container --}}
+    <div class="row mt-0 g-4 helpers-container" id="helpers-container" style="min-height:250px"></div>
 
-    <div class="row mt-0 g-4 helpers-container" id="helpers-container" style="min-height:250px">
-
+    <div class="custome-pagination-container mt-5">
+        <ul class="pagination justify-content-start" id="pagination-list-element">
+           {{--  <li class="page-item prev">
+                <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-left"></i></a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="javascript:void(0);">1</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="javascript:void(0);">2</a>
+            </li>
+            <li class="page-item active">
+                <a class="page-link" href="javascript:void(0);">3</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="javascript:void(0);">4</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="javascript:void(0);">5</a>
+            </li>
+            <li class="page-item next">
+                <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-right"></i></a>
+            </li> --}}
+        </ul>
     </div>
 
     <!-- Add Modal -->
@@ -94,8 +128,8 @@
                             <div class="col-12 col-md-6">
                                 <div class="form-group mb-3">
                                     <label for="number" class="form-label">@lang('helpers.age')</label>
-                                    <input type="number" min="1" name="age" id="age" class="form-control"
-                                        placeholder="@lang('helpers.age')">
+                                    <input type="number" min="1" name="age" id="age"
+                                        class="form-control" placeholder="@lang('helpers.age')">
                                 </div>
                             </div>
                             <div class="col-12 col-md-6">
@@ -308,8 +342,22 @@
 
                 }
             })
+
             function generatePagination(data) {
-                console.log(data)
+                let total_results = data.total_results;
+                let total_pages = data.total_pages
+                $('#pagination-list-element').html('');
+                //fill the results boxes under the search filter box
+                $('#results-number-placeholder').html(total_results)
+                $('#total-pages-placeholder').html(total_pages)
+
+                //generate the links for 
+
+                if (total_pages > 1) {
+                    if (total_pages >= 2) {
+
+                    }
+                }
             }
 
             // fill helpers page function (helpers list) and call it after
@@ -331,7 +379,7 @@
                     text: $('#search_text').val(),
                     category: $('#search_category').val(),
                     nationality: $('#search_nationality').val(),
-                    page:page
+                    page: page
                 }
                 $.ajax({
                     method: "GET",
