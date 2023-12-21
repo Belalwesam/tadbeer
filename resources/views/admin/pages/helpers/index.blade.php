@@ -607,9 +607,17 @@
                 data.append('nationality', $('#edit_nationality').val())
                 data.append('age', $('#edit_age').val())
                 data.append('category_id', $('#edit_category_id').val())
-                data.append('video', videoFileEdit)
-                data.append('avatar', avatarFileEdit)
-                data.append('resume', resumeFileEdit)
+                if (videoFileEdit) {
+                    data.append('video', videoFileEdit)
+                }
+
+                if (avatarFileEdit) {
+                    data.append('avatar', avatarFileEdit)
+                }
+
+                if (resumeFileEdit) {
+                    data.append('resume', resumeFileEdit)
+                }
                 data.append('_token', "{!! csrf_token() !!}")
                 console.log(data)
                 return
