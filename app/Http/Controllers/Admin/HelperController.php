@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Services\FilesUploadService;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Admin\HelperStoreRequest;
+use App\Http\Requests\Admin\HelperUpdateRequest;
 
 class HelperController extends Controller
 {
@@ -128,8 +129,8 @@ class HelperController extends Controller
         return view('admin.pages.helpers.show-video', compact('helper'));
     }
 
-    public function update(Request $request) {
-
+    public function update(HelperUpdateRequest $request) {
+        return $request->all();
     }
     public function destroy(Request $request)
     {

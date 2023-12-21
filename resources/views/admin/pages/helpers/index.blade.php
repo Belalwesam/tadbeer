@@ -611,6 +611,9 @@
                 data.append('nationality', $('#edit_nationality').val())
                 data.append('age', $('#edit_age').val())
                 data.append('category_id', $('#edit_category_id').val())
+                data.append('_token', '{!! csrf_token() !!}')
+                data.append('_method', 'PATCH')
+                // check if there are files sent for this request
                 if (videoFileEdit) {
                     data.append('video', videoFileEdit)
                 }
@@ -622,14 +625,15 @@
                 if (resumeFileEdit) {
                     data.append('resume', resumeFileEdit)
                 }
-                data.append('_token', "{!! csrf_token() !!}")
-                console.log(data)
-                return
+                // console.log(data)
+                // return
                 let formBtn = $(this) // the button that sends the reuquest (to minipulate ui)
 
                 $.ajax({
-                    method: 'PATCH',
+                    method: 'POST',
                     url: "{!! route('admin.helpers.update') !!}",
+                    processData: false,
+                    contentType: false,
                     data: data,
                     beforeSend: function() {
                         formBtn.html(
@@ -639,7 +643,7 @@
                     },
                     success: function(response) {
                         successMessage("@lang('general.edit_success')")
-                        $('#editCategoryModal').modal('toggle')
+                        $('#editHelperModal').modal('toggle')
                     },
                     error: function(response) {
                         errorMessage("@lang('general.error')")
