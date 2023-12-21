@@ -129,8 +129,27 @@ class HelperController extends Controller
         return view('admin.pages.helpers.show-video', compact('helper'));
     }
 
-    public function update(HelperUpdateRequest $request) {
-        return $request->all();
+    public function update(HelperUpdateRequest $request)
+    {
+        $helper = Helper::findOrFail($request->id);
+        $data['name'] = $request->validated('name');
+        $data['age'] = $request->validated('age');
+        $data['nationality'] = $request->validated('nationality');
+        $data['category_id'] = $request->validated('category_id');
+        if ($request->has('video') && $request->hasFile('video')) {
+            Storage::disk('public')->delete('/' . $helper->video);
+            $data['video'] = $this->filesUploadService->uploadFile($request->file('video'), '/videos');
+        }
+        if ($request->has('avatar') && $request->hasFile('avatar')) {
+            Storage::disk('public')->delete('/' . $helper->avatar);
+            $data['avatar'] = $this->filesUploadService->uploadFile($request->file('avatar'), '/avatars');
+        }
+        if ($request->has('resume') && $request->hasFile('resume')) {
+            Storage::disk('public')->delete('/' . $helper->resume);
+            $data['resume'] = $this->filesUploadService->uploadFile($request->file('resume'), '/resumes');
+        }
+        $helper->update($data);
+        return http_response_code(200);
     }
     public function destroy(Request $request)
     {
