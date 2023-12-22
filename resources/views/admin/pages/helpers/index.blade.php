@@ -387,8 +387,11 @@
                     //check current page to add previous chevron or not
                     if (current_page > 1) {
                         output += `
+                                <li class="page-item first">
+                                <a class="page-link"  id="pagination-nav" data-page = '1'  href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-left"></i></a>
+                                </li>
                                 <li class="page-item prev">
-                                    <a class="page-link" id="pagination-nav" href="javascript:void(0);" data-page = '${current_page - 1}'><i class="tf-icon bx bx-chevrons-left"></i></a>
+                                    <a class="page-link" id="pagination-nav" href="javascript:void(0);" data-page = '${current_page - 1}'><i class="tf-icon bx bx-chevron-left"></i></a>
                                 </li>`
                     }
                     for (let i = current_page; i <= current_page + 4; i++) {
@@ -423,8 +426,12 @@
                     if (current_page < total_pages) {
                         output += `
                                 <li class="page-item prev">
-                                    <a class="page-link" id="pagination-nav" href="javascript:void(0);" data-page = '${current_page + 1}'><i class="tf-icon bx bx-chevrons-right"></i></a>
-                                </li>`
+                                    <a class="page-link" id="pagination-nav" href="javascript:void(0);" data-page = '${current_page + 1}'><i class="tf-icon bx bx-chevron-right"></i></a>
+                                </li>
+                                <li class="page-item first">
+                                <a class="page-link"  id="pagination-nav" data-page = '${total_pages}'  href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-right"></i></a>
+                                </li>
+                                `
                     }
                     $('#pagination-list-element').html(output);
                 }
