@@ -27,14 +27,14 @@ class HelperController extends Controller
     }
     public function store(HelperStoreRequest $request)
     {
-        // return $this->filesUploadService->test();
         // take validated data
         $data['name'] = $request->validated('name');
         $data['age'] = $request->validated('age');
         $data['nationality'] = $request->validated('nationality');
         $data['category_id'] = $request->validated('category_id');
         $data['sku'] = Str::random(4) . '-' . uniqid();
-
+        $data['religion'] = $request->religion;
+        $data['featured'] = $request->featured;
 
         if ($request->hasFile('video')) {
             $data['video'] = $this->filesUploadService->uploadFile($request->file('video'), '/videos');
@@ -51,13 +51,10 @@ class HelperController extends Controller
 
     public function getHelpersList(Request $request)
     {
-        // return $request->all();
-        // $helpers = Helper::;
 
         $helpers = Helper::query();
         $page = $request->page;
         $per_page = 9;
-        // $total_count = $helpers->count();
        
         if ($request->has('nationality') && $request->filled('nationality')) {
             $helpers = $helpers->where('nationality', $request->nationality);

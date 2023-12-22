@@ -23,6 +23,7 @@ class HelperStoreRequest extends FormRequest
         return [
             'name' => 'required|string',
             'nationality' => 'required|string',
+            'religion' => 'required|string',
             'category_id' => 'required|integer',
             'age' => 'required|integer',
             'video' => 'required|mimes:mp4',
@@ -41,6 +42,7 @@ class HelperStoreRequest extends FormRequest
             'nationality' => trans('helpers.nationality'),
             'video' => trans('helpers.video'),
             'avatar' => trans('helpers.avatar'),
+            'religion' => trans('helpers.religion'),
         ];
     }
 }

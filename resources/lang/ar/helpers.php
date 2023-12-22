@@ -15,5 +15,9 @@ return [
     'age' => 'العمر',
     'short_video' => 'الفيديو',
     'short_resume' => 'السيرة',
-    'year' => 'سنة'
+    'year' => 'سنة',
+    'religion' => 'الديانة',
+    'featured' => 'إظهار على الصفحة الرئيسية',
+    'islam' => 'الإسلام',
+    'christian' => 'المسيحية'
 ];

@@ -122,6 +122,25 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="religion" class="form-label">@lang('helpers.religion')</label>
+                                    <select name="religion" id="religion" class="form-select">
+                                        <option value="">@lang('general.please_select')</option>
+                                        <option value="islam">@lang('helpers.islam')</option>
+                                        <option value="christian">@lang('helpers.christian')</option>
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 d-flex align-items-center">
+                                <div class="form-group">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" name="featured" id="featured">
+                                        <label class="form-check-label" for="featured">@lang('helpers.featured')</label>
+                                      </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="row">
@@ -617,8 +636,11 @@
                     $(this).remove()
                 })
                 let data = new FormData();
+
                 //append to form data
                 data.append('name', $('#name').val())
+                data.append('religion', $('#religion').val())
+                data.append('featured', $('#featured').is(":checked") ? 1 : 0)
                 data.append('nationality', $('#nationality').val())
                 data.append('age', $('#age').val())
                 data.append('category_id', $('#category_id').val())

@@ -14,6 +14,10 @@ return [
     'age' => 'Age',
     'short_video' => 'Video',
     'short_resume' => 'Resume',
-    'year' => 'Years Old'
+    'year' => 'Years Old',
+    'religion' => 'Religion',
+    'featured' => 'Feature on landing page',
+    'islam' => 'Islam',
+    'christian' => 'Chrisitan'
 
 ];
