@@ -358,6 +358,7 @@
                     if (total_pages >= 2) {
                         let output = ``
 
+                        //check current page to add previous chevron or not
                         if (current_page > 1) {
                             output += `
                                 <li class="page-item prev">
@@ -370,6 +371,14 @@
                                 <a class="page-link" id="pagination-nav" href="javascript:void(0);" data-page = '${i}'>${i}</a>
                             </li>   
                         `
+                        }
+
+                        //check current page to add next chevron or not 
+                        if (current_page < total_pages) {
+                            output += `
+                                <li class="page-item prev">
+                                    <a class="page-link" id="pagination-nav" href="javascript:void(0);" data-page = '${current_page + 1}'><i class="tf-icon bx bx-chevrons-right"></i></a>
+                                </li>`
                         }
                         $('#pagination-list-element').html(output);
                     }
