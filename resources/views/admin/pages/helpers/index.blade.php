@@ -357,6 +357,13 @@
                 if (total_pages > 1) {
                     if (total_pages >= 2) {
                         let output = ``
+
+                        if (current_page > 1) {
+                            output += `
+                                <li class="page-item prev">
+                                    <a class="page-link" id="pagination-nav" href="javascript:void(0);" data-page = '${current_page - 1}'><i class="tf-icon bx bx-chevrons-left"></i></a>
+                                </li>`
+                        }
                         for (let i = 1; i <= total_pages; i++) {
                             output += `
                             <li class="page-item ${i === current_page ? 'active' : ''}">
