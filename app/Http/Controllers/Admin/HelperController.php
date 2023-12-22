@@ -33,7 +33,7 @@ class HelperController extends Controller
         $data['nationality'] = $request->validated('nationality');
         $data['category_id'] = $request->validated('category_id');
         $data['sku'] = Str::random(4) . '-' . uniqid();
-        $data['religion'] = $request->religion;
+        $data['religion'] = $request->validated('religion');
         $data['featured'] = $request->featured;
 
         if ($request->hasFile('video')) {

@@ -16,7 +16,9 @@ class Helper extends Model
         'video',
         'avatar',
         'resume',
-        'category_id'
+        'category_id',
+        'featured',
+        'religion'
     ];
 
     public function category()

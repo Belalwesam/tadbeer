@@ -712,6 +712,8 @@
                     $('#nationality').val('').trigger('change')
                     $('#age').val('')
                     $('#category_id').val('')
+                    $('#religion').val('')
+                    $('#feaatured').prop('checked', false)
                     formBtn.html("@lang('general.create')")
                     formBtn.prop('disabled', false)
                 }).fail(function() {
