@@ -354,7 +354,7 @@
 
                 //generate the links for 
 
-                if (total_pages > 1) {
+                if (total_pages > 1 && total_pages < 5) {
                     if (total_pages >= 2) {
                         let output = ``
 
@@ -382,6 +382,51 @@
                         }
                         $('#pagination-list-element').html(output);
                     }
+                } else if (total_pages > 1 && total_pages > 5) {
+                    let output = ``
+                    //check current page to add previous chevron or not
+                    if (current_page > 1) {
+                        output += `
+                                <li class="page-item prev">
+                                    <a class="page-link" id="pagination-nav" href="javascript:void(0);" data-page = '${current_page - 1}'><i class="tf-icon bx bx-chevrons-left"></i></a>
+                                </li>`
+                    }
+                    for (let i = current_page; i <= current_page + 4; i++) {
+
+                        if (i > total_pages) {
+                            break
+                        }
+                        if (i === 1) {
+                            output += `
+                            <li class="page-item ${i === current_page ? 'active' : ''}">
+                                <a class="page-link" id="pagination-nav" href="javascript:void(0);" data-page = '${i}'>${i}</a>
+                            </li>   
+                        `
+                        } else {
+                            if (i !== current_page + 4) {
+                                output += `
+                                    <li class="page-item ${i === current_page ? 'active' : ''}">
+                                        <a class="page-link" id="pagination-nav" href="javascript:void(0);" data-page = '${i}'>${i}</a>
+                                    </li>   
+                                `
+                            } else {
+                                output += `
+                                    <li class="page-item">
+                                        <a class="page-link" href="javascript:void(0);">...</a>
+                                    </li>   
+                                `
+                            }
+                        }
+                    }
+
+                    //check current page to add next chevron or not 
+                    if (current_page < total_pages) {
+                        output += `
+                                <li class="page-item prev">
+                                    <a class="page-link" id="pagination-nav" href="javascript:void(0);" data-page = '${current_page + 1}'><i class="tf-icon bx bx-chevrons-right"></i></a>
+                                </li>`
+                    }
+                    $('#pagination-list-element').html(output);
                 }
             }
 
