@@ -19,7 +19,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     #add localized routes here 
 
     #test route
-    Route::get('/login-placeholder', function () {
-        dd("the placeholder login page");
-    })->name('login');
+    Route::get('/', function () {
+        return view('landing.pages.index');
+    })->name('home');
 });
