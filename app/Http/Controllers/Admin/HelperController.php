@@ -85,6 +85,7 @@ class HelperController extends Controller
             $helper->video = route('admin.helpers.helpers.show_video', $helper->id);
             $helper->resume = asset(Storage::url($helper->resume));
             $helper->category = $helper->category;
+            $helper->religion_translated = trans('helpers.'.$helper->religion);
 
             // check if the admin has ability to do these actions
             if (auth('admin')->user()->hasAbilityTo('edit helpers')) {

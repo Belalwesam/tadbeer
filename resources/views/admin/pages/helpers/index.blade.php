@@ -498,6 +498,10 @@
                                             <a href="javascript:;" class="me-1"><span class="badge bg-label-secondary">${helper.age} @lang('helpers.year')</span></a>
                                             <a href="javascript:;"><span class="badge bg-label-success">${helper.nationality}</span></a>
                                         </div>
+                                        <div class="d-flex align-items-center justify-content-center my-3 gap-2">
+                                            <a href="javascript:;" class="me-1"><span class="badge bg-label-info">${helper.religion_translated} </span></a>
+                                            <a href="javascript:;"><span class="badge bg-label-danger">${helper.featured == 1 ? "@lang('helpers.featured')" : ""}</span></a>
+                                        </div>
                                         <div class="d-flex align-items-center justify-content-center">
                                             <a href="${helper.video}" class="btn btn-primary d-flex align-items-center me-3"><i
                                                     class="bx bx-video me-1"></i>@lang('helpers.short_video')</a>

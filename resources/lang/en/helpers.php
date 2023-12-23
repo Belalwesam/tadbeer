@@ -18,6 +18,7 @@ return [
     'religion' => 'Religion',
     'featured' => 'Feature on landing page',
     'islam' => 'Islam',
-    'christian' => 'Chrisitan'
+    'christian' => 'Chrisitan',
+    'undefined' => 'Undefined'
 
 ];
