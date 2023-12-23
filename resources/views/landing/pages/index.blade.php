@@ -3,5 +3,5 @@
     
 @endsection
 @section('content')
-    <button type="button" class="btn btn-success">Success</button>
+    content goes here
 @endsection

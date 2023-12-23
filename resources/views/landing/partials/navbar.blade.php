@@ -1,3 +1,3 @@
-<div>
-    <!-- The whole future lies in uncertainty: live immediately. - Seneca -->
-</div>
+<nav class="navigation">
+    navigation for mes
+</nav>

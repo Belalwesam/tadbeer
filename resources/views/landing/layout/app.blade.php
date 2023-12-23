@@ -46,6 +46,11 @@
 <body>
     <!-- Content -->
     <div class="container-fluid flex-grow-1">
+        <!-- Navbar -->
+        @include('landing.partials.navbar')
+        <!-- / Nontent -->
+
+
         <!-- Pages Content Here -->
         @yield('content')
         <!--/ Pages Content Here -->
@@ -54,11 +59,6 @@
     <div class="content-backdrop fade"></div>
 
     <!-- Overlay -->
-    <div class="layout-overlay layout-menu-toggle"></div>
-
-    <!-- Drag Target Area To SlideIn Menu On Small Screens -->
-    <div class="drag-target"></div>
-    <!-- / Layout wrapper -->
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
