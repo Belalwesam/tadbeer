@@ -102,6 +102,8 @@ class HelperController extends Controller
                                     data-nationality = "{$helper->nationality}"
                                     data-category = "{$helper->category_id}"
                                     data-age = "{$helper->age}"
+                                    data-religion = "{$helper->religion}"
+                                    data-featured = "{$helper->featured}"
                                     data-bs-toggle="modal"
                                     data-bs-target = "#editHelperModal"
                                     href="javascript:void(0);">
@@ -139,6 +141,8 @@ class HelperController extends Controller
         $helper = Helper::findOrFail($request->id);
         $data['name'] = $request->validated('name');
         $data['age'] = $request->validated('age');
+        $data['religion'] = $request->validated('religion');
+        $data['featured'] = $request->featured;
         $data['nationality'] = $request->validated('nationality');
         $data['category_id'] = $request->validated('category_id');
         if ($request->has('video') && $request->hasFile('video')) {

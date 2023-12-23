@@ -28,7 +28,9 @@ class HelperUpdateRequest extends FormRequest
             'category_id' => 'required|integer',
             'video' => 'nullable|mimes:mp4',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'resume' => 'nullable|mimes:pdf|max:2048'
+            'resume' => 'nullable|mimes:pdf|max:2048',
+            'religion' => 'required|string',
+
         ];
     }
 
@@ -43,6 +45,8 @@ class HelperUpdateRequest extends FormRequest
             'nationality' => trans('helpers.nationality'),
             'video' => trans('helpers.video'),
             'avatar' => trans('helpers.avatar'),
+            'religion' => trans('helpers.religion'),
+
         ];
     }
 }

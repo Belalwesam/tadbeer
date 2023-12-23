@@ -238,6 +238,25 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="edit_religion" class="form-label">@lang('helpers.religion')</label>
+                                    <select name="edit_religion" id="edit_religion" class="form-select">
+                                        <option value="">@lang('general.please_select')</option>
+                                        <option value="islam">@lang('helpers.islam')</option>
+                                        <option value="christian">@lang('helpers.christian')</option>
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 d-flex align-items-center">
+                                <div class="form-group">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" name="edit_featured" id="edit_featured">
+                                        <label class="form-check-label" for="featured">@lang('helpers.featured')</label>
+                                      </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="row">
@@ -727,6 +746,8 @@
                 $('#edit_id').val($(this).data('id'))
                 $('#edit_name').val($(this).data('name'))
                 $('#edit_age').val($(this).data('age'))
+                $('#edit_religion').val($(this).data('religion'))
+                $('#edit_featured').prop('checked' , $(this).data('featured'))
                 $('#edit_category_id').val($(this).data('category'))
                 $('#edit_nationality').val($(this).data('nationality')).trigger('change')
                 $('.file-upload-error').each(function() {
@@ -754,6 +775,8 @@
                 let data = new FormData();
                 //append to form data
                 data.append('name', $('#edit_name').val())
+                data.append('religion', $('#edit_religion').val())
+                data.append('featured', $('#edit_featured').is(":checked") ? 1 : 0)
                 data.append('id', $('#edit_id').val())
                 data.append('nationality', $('#edit_nationality').val())
                 data.append('age', $('#edit_age').val())
