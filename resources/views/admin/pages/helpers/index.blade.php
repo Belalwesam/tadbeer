@@ -129,7 +129,7 @@
                                         <option value="">@lang('general.please_select')</option>
                                         <option value="islam">@lang('helpers.islam')</option>
                                         <option value="christian">@lang('helpers.christian')</option>
-                                        
+
                                     </select>
                                 </div>
                             </div>
@@ -138,7 +138,7 @@
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" name="featured" id="featured">
                                         <label class="form-check-label" for="featured">@lang('helpers.featured')</label>
-                                      </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -245,16 +245,17 @@
                                         <option value="">@lang('general.please_select')</option>
                                         <option value="islam">@lang('helpers.islam')</option>
                                         <option value="christian">@lang('helpers.christian')</option>
-                                        
+
                                     </select>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 d-flex align-items-center">
                                 <div class="form-group">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" name="edit_featured" id="edit_featured">
+                                        <input class="form-check-input" type="checkbox" name="edit_featured"
+                                            id="edit_featured">
                                         <label class="form-check-label" for="featured">@lang('helpers.featured')</label>
-                                      </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -482,6 +483,14 @@
                     success: function(response) {
                         generatePagination(response)
                         $('#helpers-container').html('')
+                        if (response.helpers.length < 1) {
+                            let output = `
+                                <h4 class="card-title text-center mb-0">@lang('general.no_results')</h4>
+                            `
+                            $('#helpers-container').html(output)
+
+                            return
+                        }
                         let output = ``
                         response.helpers.forEach(helper => {
                             output += `
@@ -751,7 +760,7 @@
                 $('#edit_name').val($(this).data('name'))
                 $('#edit_age').val($(this).data('age'))
                 $('#edit_religion').val($(this).data('religion'))
-                $('#edit_featured').prop('checked' , $(this).data('featured'))
+                $('#edit_featured').prop('checked', $(this).data('featured'))
                 $('#edit_category_id').val($(this).data('category'))
                 $('#edit_nationality').val($(this).data('nationality')).trigger('change')
                 $('.file-upload-error').each(function() {

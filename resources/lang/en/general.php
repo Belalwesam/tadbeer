@@ -21,4 +21,5 @@ return [
     'delete_success' => 'Deleted Successfully',
     'please_select' => 'Please Select',
     'drag_&_drop' => 'Drage files here or click to upload',
+    'no_results' => 'No Results Found.'
 ];
